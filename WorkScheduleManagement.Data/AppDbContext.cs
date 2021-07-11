@@ -1,14 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Entities.Requests;
 using WorkScheduleManagement.Data.Entities.Requests.RequestsDetails;
+using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+            // Database.EnsureCreated();
         }
 
         public DbSet<Request> Requests { get; set; }
@@ -27,10 +30,6 @@ namespace WorkScheduleManagement.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.Entity<DayOffInsteadOverworkingRequest>()
-            //     .HasMany(r => r.OverworkingDays)
-            //     .WithOne(d => d.Request);
-
             modelBuilder.Entity<OverworkingDays>()
                 .HasNoKey();
             

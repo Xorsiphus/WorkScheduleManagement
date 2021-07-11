@@ -1,9 +1,9 @@
-﻿using System;
+﻿using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Data.Entities.Requests
 {
     public class DayOffInsteadVacationRequest : Request
     {
-        public Guid Replacer { get; set; }
+        public ApplicationUser Replacer { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Data.Entities.Requests
 {
@@ -6,7 +7,7 @@ namespace WorkScheduleManagement.Data.Entities.Requests
     {
         public VacationTypes VacationType { get; set; }
 
-        public Guid Replacer { get; set; }
+        public ApplicationUser Replacer { get; set; }
         
         public DateTime DateFrom { get; set; }
         

@@ -1,5 +1,7 @@
 .idea/
 
+/TestAuth/
+
 /TestApi/bin/
 /TestApi/obj/
 

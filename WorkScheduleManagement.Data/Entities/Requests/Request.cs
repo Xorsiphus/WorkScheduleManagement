@@ -1,4 +1,5 @@
 ﻿using System;
+using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Data.Entities.Requests
 {
@@ -6,13 +7,13 @@ namespace WorkScheduleManagement.Data.Entities.Requests
     {
         public Guid Id { get; set; }
 
-        public Guid Creator { get; set; }
+        public ApplicationUser Creator { get; set; }
 
         public RequestTypes RequestTypes { get; set; }
         
         public RequestStatuses RequestStatuses { get; set; }
 
-        public Guid Approver { get; set; }
+        public ApplicationUser Approver { get; set; }
 
         public DateTime CreatedAt { get; set; }
         
