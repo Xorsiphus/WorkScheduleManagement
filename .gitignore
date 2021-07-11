@@ -1,0 +1,13 @@
+.idea/
+
+/TestApi/bin/
+/TestApi/obj/
+
+/WorkScheduleManagement/bin/
+/WorkScheduleManagement/obj/
+
+/WorkScheduleManagement.Data/bin/
+/WorkScheduleManagement.Data/obj/
+
+/WorkScheduleManagement.Models/bin/
+/WorkScheduleManagement.Models/obj/
