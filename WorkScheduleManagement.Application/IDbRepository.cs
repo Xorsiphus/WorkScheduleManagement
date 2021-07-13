@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Entities.Requests;
 
-namespace WorkScheduleManagement.Data
+namespace WorkScheduleManagement.Application
 {
     public interface IDbRepository
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WorkScheduleManagement.Models.Models.Users
+namespace WorkScheduleManagement.Application.Models.Users
 {
     public class ApplicationUserModel : IdentityUser
     {

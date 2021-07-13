@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using WorkScheduleManagement.Data.Entities.Requests.RequestsDetails;
 using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Data.Entities.Requests
@@ -14,7 +16,7 @@ namespace WorkScheduleManagement.Data.Entities.Requests
         public DateTime DateTo { get; set; }
 
         public bool IsShifting { get; set; }
-        
-        
+
+        public IList<OverworkingDays> OverworkingDays { get; set; }
     }
 }

@@ -27,7 +27,9 @@ namespace WorkScheduleManagement.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    VacationDaysCount = table.Column<int>(type: "integer", nullable: false),
+                    FullName = table.Column<string>(type: "text", nullable: true),
+                    Position = table.Column<string>(type: "text", nullable: true),
+                    UnusedVacationDaysCount = table.Column<int>(type: "integer", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -278,30 +280,43 @@ namespace WorkScheduleManagement.Migrations
                 name: "OverworkingDays",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RequestId = table.Column<Guid>(type: "uuid", nullable: false),
                     DateFrom = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DateTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    DateTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    VacationRequestId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_OverworkingDays", x => x.Id);
                     table.ForeignKey(
                         name: "FK_OverworkingDays_Requests_RequestId",
                         column: x => x.RequestId,
                         principalTable: "Requests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OverworkingDays_Requests_VacationRequestId",
+                        column: x => x.VacationRequestId,
+                        principalTable: "Requests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "RemotePlans",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RequestId = table.Column<Guid>(type: "uuid", nullable: false),
                     Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     WorkingPlan = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_RemotePlans", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RemotePlans_Requests_RequestId",
                         column: x => x.RequestId,
@@ -351,6 +366,11 @@ namespace WorkScheduleManagement.Migrations
                 name: "IX_OverworkingDays_RequestId",
                 table: "OverworkingDays",
                 column: "RequestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OverworkingDays_VacationRequestId",
+                table: "OverworkingDays",
+                column: "VacationRequestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RemotePlans_RequestId",

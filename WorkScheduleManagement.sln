@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApi", "TestApi\TestApi.csproj", "{CCDB4ACB-102B-462F-92AC-A4F5C75EFDDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Models", "WorkScheduleManagement.Models\WorkScheduleManagement.Models.csproj", "{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Application", "WorkScheduleManagement.Application\WorkScheduleManagement.Application.csproj", "{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAuth", "TestAuth\TestAuth.csproj", "{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}"
 EndProject

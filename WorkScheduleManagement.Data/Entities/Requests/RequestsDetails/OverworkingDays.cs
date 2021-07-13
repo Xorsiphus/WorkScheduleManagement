@@ -4,6 +4,8 @@ namespace WorkScheduleManagement.Data.Entities.Requests.RequestsDetails
 {
     public class OverworkingDays : IEntity
     {
+        public int Id { get; set; }
+
         public Guid RequestId { get; set; }
 
         public DateTime DateFrom { get; set; }

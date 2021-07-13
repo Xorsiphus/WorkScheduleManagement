@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace WorkScheduleManagement.Models.Models
+namespace WorkScheduleManagement.Application.Models
 {
-    public class RequestTypesModel
+    public class VacationTypesModel
     {
         [BindNever]
         public int Id { get; set; }
-
+        
         public string Name { get; set; }
     }
 }

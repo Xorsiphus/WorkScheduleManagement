@@ -5,7 +5,7 @@ using WorkScheduleManagement.Data.Entities.Requests;
 using WorkScheduleManagement.Data.Entities.Requests.RequestsDetails;
 using WorkScheduleManagement.Data.Entities.Users;
 
-namespace WorkScheduleManagement.Data
+namespace WorkScheduleManagement.Application
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -30,12 +30,11 @@ namespace WorkScheduleManagement.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<OverworkingDays>()
-                .HasNoKey();
+            // modelBuilder
+            //     .Entity<HolidayRequest>()
+            //     .Property(r => r.Replacer)
+            //     .HasColumnName("HolidayRequest_ReplacerId");
             
-            modelBuilder.Entity<RemotePlans>()
-                .HasNoKey();
-        
             base.OnModelCreating(modelBuilder);
         }
     }

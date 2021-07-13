@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Entities.Requests;
 
-namespace WorkScheduleManagement.Data
+namespace WorkScheduleManagement.Application
 {
     public class DbService : IDbRepository
     {

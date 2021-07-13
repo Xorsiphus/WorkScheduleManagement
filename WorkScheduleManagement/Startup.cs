@@ -5,9 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WorkScheduleManagement.Data;
+using WorkScheduleManagement.Application;
 using WorkScheduleManagement.Data.Entities.Users;
-using WorkScheduleManagement.Models.Models.Users;
 
 namespace WorkScheduleManagement
 {

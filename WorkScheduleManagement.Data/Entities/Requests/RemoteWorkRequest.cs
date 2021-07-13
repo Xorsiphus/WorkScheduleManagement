@@ -5,6 +5,6 @@ namespace WorkScheduleManagement.Data.Entities.Requests
 {
     public class RemoteWorkRequest : Request
     {
-        
+        public IList<RemotePlans> RemotePlans { get; set; }
     }
 }

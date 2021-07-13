@@ -21,7 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WorkScheduleManagement.Data\WorkScheduleManagement.Data.csproj" />
-      <ProjectReference Include="..\WorkScheduleManagement.Models\WorkScheduleManagement.Models.csproj" />
+      <ProjectReference Include="..\WorkScheduleManagement.Application\WorkScheduleManagement.Application.csproj" />
     </ItemGroup>
 
 </Project>

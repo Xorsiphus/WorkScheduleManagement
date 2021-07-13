@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using WorkScheduleManagement.Data;
+using WorkScheduleManagement.Application;
 
 namespace WorkScheduleManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210711151306_init")]
+    [Migration("20210713060410_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,6 +229,11 @@ namespace WorkScheduleManagement.Migrations
 
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.OverworkingDays", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
                     b.Property<DateTime>("DateFrom")
                         .HasColumnType("timestamp without time zone");
 
@@ -238,13 +243,25 @@ namespace WorkScheduleManagement.Migrations
                     b.Property<Guid>("RequestId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("VacationRequestId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
                     b.HasIndex("RequestId");
+
+                    b.HasIndex("VacationRequestId");
 
                     b.ToTable("OverworkingDays");
                 });
 
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.RemotePlans", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
@@ -253,6 +270,8 @@ namespace WorkScheduleManagement.Migrations
 
                     b.Property<string>("WorkingPlan")
                         .HasColumnType("text");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("RequestId");
 
@@ -278,6 +297,9 @@ namespace WorkScheduleManagement.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("text");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
@@ -301,18 +323,21 @@ namespace WorkScheduleManagement.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("Position")
+                        .HasColumnType("text");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("UnusedVacationDaysCount")
+                        .HasColumnType("integer");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
-
-                    b.Property<int>("VacationDaysCount")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -499,13 +524,17 @@ namespace WorkScheduleManagement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WorkScheduleManagement.Data.Entities.Requests.VacationRequest", null)
+                        .WithMany("OverworkingDays")
+                        .HasForeignKey("VacationRequestId");
+
                     b.Navigation("Request");
                 });
 
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.RemotePlans", b =>
                 {
-                    b.HasOne("WorkScheduleManagement.Data.Entities.Requests.Request", "Request")
-                        .WithMany()
+                    b.HasOne("WorkScheduleManagement.Data.Entities.Requests.RemoteWorkRequest", "Request")
+                        .WithMany("RemotePlans")
                         .HasForeignKey("RequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -553,6 +582,16 @@ namespace WorkScheduleManagement.Migrations
                     b.Navigation("Replacer");
 
                     b.Navigation("VacationType");
+                });
+
+            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RemoteWorkRequest", b =>
+                {
+                    b.Navigation("RemotePlans");
+                });
+
+            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.VacationRequest", b =>
+                {
+                    b.Navigation("OverworkingDays");
                 });
 #pragma warning restore 612, 618
         }

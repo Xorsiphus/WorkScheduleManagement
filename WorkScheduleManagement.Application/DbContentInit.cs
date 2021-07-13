@@ -4,7 +4,7 @@ using System.Linq;
 using WorkScheduleManagement.Data.Constant;
 using WorkScheduleManagement.Data.Entities;
 
-namespace WorkScheduleManagement.Data
+namespace WorkScheduleManagement.Application
 {
     public static class DbContentInit
     {
