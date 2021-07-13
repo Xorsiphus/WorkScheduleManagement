@@ -6,8 +6,6 @@ namespace WorkScheduleManagement.Data.Entities.Requests.RequestsDetails
     {
         public int Id { get; set; }
 
-        public Guid RequestId { get; set; }
-
         public DateTime DateFrom { get; set; }
         
         public DateTime DateTo { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WorkScheduleManagement.Data.Entities.Requests.RequestsDetails;
 
-namespace WorkScheduleManagement.Models.Models.Requests
+namespace WorkScheduleManagement.Application.Models.Requests
 {
     public class DayOffInsteadVacationRequestModel : RequestAbstractModel
     {

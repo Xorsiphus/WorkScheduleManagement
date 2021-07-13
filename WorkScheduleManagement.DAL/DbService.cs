@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Entities.Requests;
 
-namespace WorkScheduleManagement.Application
+namespace WorkScheduleManagement.DAL
 {
     public class DbService : IDbRepository
     {
@@ -30,18 +30,15 @@ namespace WorkScheduleManagement.Application
         public async Task<T> Add<T>(T entity) where T : class, IEntity
         {
             var addedEntity = await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
             return addedEntity.Entity;
         }
 
         public async Task<T> Update<T>(T entity) where T : class, IEntity
         {
             var updatedEntity = await Task.Run(() => _context.Set<T>().Update(entity));
-            return updatedEntity.Entity;
-        }
-
-        public async Task Save()
-        {
             await _context.SaveChangesAsync();
+            return updatedEntity.Entity;
         }
     }
 }

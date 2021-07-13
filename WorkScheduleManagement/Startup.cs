@@ -1,3 +1,5 @@
+using System.Reflection;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -5,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WorkScheduleManagement.Application;
+using WorkScheduleManagement.DAL;
 using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement
@@ -29,8 +31,16 @@ namespace WorkScheduleManagement
                 options.EnableSensitiveDataLogging();
             });
             
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(opts=> {
+                    opts.Password.RequiredLength = 5; 
+                    opts.Password.RequireNonAlphanumeric = false;
+                    opts.Password.RequireLowercase = false;
+                    opts.Password.RequireUppercase = false;
+                    opts.Password.RequireDigit = false;
+                })
                 .AddEntityFrameworkStores<AppDbContext>();
+
+            services.AddMediatR(Assembly.GetExecutingAssembly());
             
             services.AddControllersWithViews();
         }

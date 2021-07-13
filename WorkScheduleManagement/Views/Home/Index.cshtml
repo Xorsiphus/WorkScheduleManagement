@@ -6,3 +6,25 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@{
+    System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+}
+@if(User.Identity.IsAuthenticated)
+{
+    <p>@User.Identity.Name</p>
+ 
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Выход" />
+    </form>
+}
+else
+{
+    <p><a asp-controller="Account" asp-action="Login">Вход</a></p>
+    <p><a asp-controller="Account" asp-action="Register">Регистрация</a></p>
+}

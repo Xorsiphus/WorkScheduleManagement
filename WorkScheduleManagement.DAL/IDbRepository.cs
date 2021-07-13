@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Entities.Requests;
 
-namespace WorkScheduleManagement.Application
+namespace WorkScheduleManagement.DAL
 {
     public interface IDbRepository
     {
@@ -16,7 +16,5 @@ namespace WorkScheduleManagement.Application
         Task<T> Add<T>(T entity) where T : class, IEntity;
 
         Task<T> Update<T>(T entity) where T : class, IEntity;
-
-        Task Save();
     }
 }

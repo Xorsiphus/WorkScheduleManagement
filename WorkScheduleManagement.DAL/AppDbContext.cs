@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WorkScheduleManagement.Data.Entities.Roles;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Entities.Requests;
 using WorkScheduleManagement.Data.Entities.Requests.RequestsDetails;
 using WorkScheduleManagement.Data.Entities.Users;
 
-namespace WorkScheduleManagement.Application
+namespace WorkScheduleManagement.DAL
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

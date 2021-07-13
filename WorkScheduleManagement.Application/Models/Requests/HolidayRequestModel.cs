@@ -1,4 +1,4 @@
-﻿namespace WorkScheduleManagement.Models.Models.Requests
+﻿namespace WorkScheduleManagement.Application.Models.Requests
 {
     public class HolidayRequestModel : RequestAbstractModel
     {

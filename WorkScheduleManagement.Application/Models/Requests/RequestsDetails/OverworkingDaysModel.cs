@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace WorkScheduleManagement.Models.Models.Requests.RequestsDetails
+namespace WorkScheduleManagement.Application.Models.Requests.RequestsDetails
 {
     public class OverworkingDaysModel
     {

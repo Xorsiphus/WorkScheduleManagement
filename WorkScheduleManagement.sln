@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAuth", "TestAuth\TestAuth.csproj", "{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.DAL", "WorkScheduleManagement.DAL\WorkScheduleManagement.DAL.csproj", "{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

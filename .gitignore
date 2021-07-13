@@ -8,6 +8,9 @@
 /WorkScheduleManagement/bin/
 /WorkScheduleManagement/obj/
 
+/WorkScheduleManagement.DAL/bin/
+/WorkScheduleManagement.DAL/obj/
+
 /WorkScheduleManagement.Data/bin/
 /WorkScheduleManagement.Data/obj/
 

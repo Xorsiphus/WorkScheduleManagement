@@ -1,7 +1,7 @@
 ﻿using System;
 using WorkScheduleManagement.Data.Constant;
 
-namespace WorkScheduleManagement.Models.Models.Requests
+namespace WorkScheduleManagement.Application.Models.Requests
 {
     public class VacationRequestModel : RequestAbstractModel
     {
