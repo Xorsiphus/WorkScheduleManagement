@@ -4,13 +4,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement", "W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Data", "WorkScheduleManagement.Data\WorkScheduleManagement.Data.csproj", "{4DEBC732-D9F0-42D8-9FD4-EF1D4E81C71F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApi", "TestApi\TestApi.csproj", "{CCDB4ACB-102B-462F-92AC-A4F5C75EFDDB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Application", "WorkScheduleManagement.Application\WorkScheduleManagement.Application.csproj", "{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAuth", "TestAuth\TestAuth.csproj", "{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.DAL", "WorkScheduleManagement.DAL\WorkScheduleManagement.DAL.csproj", "{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Persistence", "WorkScheduleManagement.Persistence\WorkScheduleManagement.Persistence.csproj", "{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +24,6 @@ Global
 		{4DEBC732-D9F0-42D8-9FD4-EF1D4E81C71F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DEBC732-D9F0-42D8-9FD4-EF1D4E81C71F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DEBC732-D9F0-42D8-9FD4-EF1D4E81C71F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CCDB4ACB-102B-462F-92AC-A4F5C75EFDDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCDB4ACB-102B-462F-92AC-A4F5C75EFDDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCDB4ACB-102B-462F-92AC-A4F5C75EFDDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCDB4ACB-102B-462F-92AC-A4F5C75EFDDB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU

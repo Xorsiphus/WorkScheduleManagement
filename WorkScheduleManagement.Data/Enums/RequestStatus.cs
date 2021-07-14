@@ -1,4 +1,4 @@
-﻿namespace WorkScheduleManagement.Data.Constant
+﻿namespace WorkScheduleManagement.Data.Enums
 {
     public enum RequestStatus
     {

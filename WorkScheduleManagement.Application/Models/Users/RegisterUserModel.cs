@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Application.Models.Users
 {
@@ -15,6 +17,8 @@ namespace WorkScheduleManagement.Application.Models.Users
         [Required]
         [Display(Name = "Должность")]
         public string Position { get; set; }
+        
+        public List<UserPosition> AllPositions { get; set; }
         
         [Required]
         [Display(Name = "Номер телефона")]

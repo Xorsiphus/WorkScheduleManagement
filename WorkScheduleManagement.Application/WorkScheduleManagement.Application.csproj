@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WorkScheduleManagement.Data\WorkScheduleManagement.Data.csproj" />
+      <ProjectReference Include="..\WorkScheduleManagement.Persistence\WorkScheduleManagement.Persistence.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -19,6 +20,11 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="CQRS" />
+      <Folder Include="Models\Roles" />
     </ItemGroup>
 
 </Project>

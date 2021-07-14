@@ -2,12 +2,14 @@ using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WorkScheduleManagement.DAL;
+using Microsoft.OpenApi.Models;
+using WorkScheduleManagement.Persistence;
 using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement
@@ -32,15 +34,22 @@ namespace WorkScheduleManagement
             });
             
             services.AddIdentity<ApplicationUser, IdentityRole>(opts=> {
-                    opts.Password.RequiredLength = 5; 
+                    opts.Password.RequiredLength = 5;
                     opts.Password.RequireNonAlphanumeric = false;
                     opts.Password.RequireLowercase = false;
                     opts.Password.RequireUppercase = false;
                     opts.Password.RequireDigit = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
+            
+            services.AddMediatR(Assembly.Load("WorkScheduleManagement.Application"));
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "TestApi", Version = "v1"}); });
 
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Errors/Error403");
+            });
             
             services.AddControllersWithViews();
         }
@@ -51,6 +60,8 @@ namespace WorkScheduleManagement
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestApi v1"));
             }
             else
             {
@@ -66,6 +77,8 @@ namespace WorkScheduleManagement
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            app.UseStatusCodePagesWithRedirects("~/Errors/Error{0}");
 
             app.UseEndpoints(endpoints =>
             {

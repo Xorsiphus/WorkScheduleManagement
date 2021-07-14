@@ -6,6 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="MediatR" Version="9.0.0" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
         <PrivateAssets>all</PrivateAssets>
@@ -15,13 +17,19 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WorkScheduleManagement.DAL\WorkScheduleManagement.DAL.csproj" />
+      <ProjectReference Include="..\WorkScheduleManagement.Persistence\WorkScheduleManagement.Persistence.csproj" />
       <ProjectReference Include="..\WorkScheduleManagement.Data\WorkScheduleManagement.Data.csproj" />
       <ProjectReference Include="..\WorkScheduleManagement.Application\WorkScheduleManagement.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\RequestControllers" />
     </ItemGroup>
 
 </Project>

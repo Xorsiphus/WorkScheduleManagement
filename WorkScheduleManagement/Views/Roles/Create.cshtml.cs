@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WorkScheduleManagement.Views.Users
+namespace WorkScheduleManagement.Views.Roles
 {
     public class Create : PageModel
     {
@@ -8,6 +8,5 @@ namespace WorkScheduleManagement.Views.Users
         {
             
         }
-        
     }
 }

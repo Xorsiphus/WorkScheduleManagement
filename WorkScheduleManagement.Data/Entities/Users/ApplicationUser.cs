@@ -6,7 +6,7 @@ namespace WorkScheduleManagement.Data.Entities.Users
     {
         public string FullName { get; set; }
 
-        public string Position { get; set; }
+        public UserPosition Position { get; set; }
 
         public int UnusedVacationDaysCount { get; set; }
     }

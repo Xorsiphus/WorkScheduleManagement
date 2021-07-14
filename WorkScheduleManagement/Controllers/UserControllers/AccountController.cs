@@ -1,43 +1,49 @@
 ﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WorkScheduleManagement.Application.Models.Users;
+using WorkScheduleManagement.Application.CQRS.Queries;
 using WorkScheduleManagement.Data.Entities.Users;
 
-namespace WorkScheduleManagement.Controllers
+namespace WorkScheduleManagement.Controllers.UserControllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
- 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        private readonly IMediator _mediator;
+
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            IMediator mediator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mediator = mediator;
         }
-        
+
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
-            return View();
+            return View(new RegisterUserModel {AllPositions = await _mediator.Send(new GetPositions.Query())});
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserModel model)
         {
-            if(ModelState.IsValid)
+            model.AllPositions = await _mediator.Send(new GetPositions.Query());
+
+            if (ModelState.IsValid)
             {
                 ApplicationUser user = new ApplicationUser
                 {
-                    Email = model.Email, 
+                    Email = model.Email,
                     UserName = model.Email,
                     FullName = model.FullName,
                     PhoneNumber = model.PhoneNumber,
-                    Position = model.Position,
                     UnusedVacationDaysCount = 20
                 };
-                
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -52,22 +58,23 @@ namespace WorkScheduleManagement.Controllers
                     }
                 }
             }
+
             return View(model);
         }
-        
+
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            return View(new LoginUserModel { ReturnUrl = returnUrl });
+            return View(new LoginUserModel {ReturnUrl = returnUrl});
         }
- 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginUserModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = 
+                var result =
                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
@@ -85,9 +92,10 @@ namespace WorkScheduleManagement.Controllers
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
                 }
             }
+
             return View(model);
         }
- 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

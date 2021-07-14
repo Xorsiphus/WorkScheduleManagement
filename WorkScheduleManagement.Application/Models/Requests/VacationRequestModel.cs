@@ -1,5 +1,5 @@
 ﻿using System;
-using WorkScheduleManagement.Data.Constant;
+using WorkScheduleManagement.Data.Enums;
 
 namespace WorkScheduleManagement.Application.Models.Requests
 {

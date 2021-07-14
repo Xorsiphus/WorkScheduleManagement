@@ -1,38 +1,39 @@
-﻿@model WorkScheduleManagement.Application.Models.Users.RegisterUserModel
+﻿@using Newtonsoft.Json
+@model WorkScheduleManagement.Application.Models.Users.RegisterUserModel
 <h2>Регистрация нового пользователя</h2>
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
+        <label asp-for="Email"></label><br/>
+        <input type="text" asp-for="Email" class="form-control"/>
         <span asp-validation-for="Email"></span>
     </div>
     <div>
-        <label asp-for="FullName"></label><br />
-        <input asp-for="FullName" />
+        <label asp-for="FullName"></label><br/>
+        <input type="text" asp-for="FullName" class="form-control"/>
         <span asp-validation-for="FullName"></span>
     </div>
     <div>
-        <label asp-for="Position"></label><br />
-        <input asp-for="Position" />
+        <label asp-for="Position"></label><br/>
+        @Html.DropDownList("Position", new SelectList(Model.AllPositions, "Id", "Name"), new { @class = "form-control" })
         <span asp-validation-for="Position"></span>
     </div>
-     <div>
-            <label asp-for="PhoneNumber"></label><br />
-            <input asp-for="PhoneNumber" />
-            <span asp-validation-for="PhoneNumber"></span>
-        </div>
     <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
+        <label asp-for="PhoneNumber"></label><br/>
+        <input type="text" asp-for="PhoneNumber" class="form-control"/>
+        <span asp-validation-for="PhoneNumber"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br/>
+        <input type="password" asp-for="Password" class="form-control"/>
         <span asp-validation-for="Password"></span>
     </div>
     <div>
-        <label asp-for="PasswordConfirm"></label><br />
-        <input asp-for="PasswordConfirm" />
+        <label asp-for="PasswordConfirm"></label><br/>
+        <input type="password" asp-for="PasswordConfirm" class="form-control"/>
         <span asp-validation-for="PasswordConfirm"></span>
     </div>
     <div>
-        <input type="submit" value="Регистрация" />
+        <input type="submit" value="Регистрация"/>
     </div>
 </form>

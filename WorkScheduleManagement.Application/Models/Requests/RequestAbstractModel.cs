@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using WorkScheduleManagement.Data.Constant;
+using WorkScheduleManagement.Data.Enums;
 
 namespace WorkScheduleManagement.Application.Models.Requests
 {

@@ -6,14 +6,15 @@ using WorkScheduleManagement.Data.Entities.Requests;
 using WorkScheduleManagement.Data.Entities.Requests.RequestsDetails;
 using WorkScheduleManagement.Data.Entities.Users;
 
-namespace WorkScheduleManagement.DAL
+namespace WorkScheduleManagement.Persistence
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            // Database.EnsureCreated();
         }
+        
+        public DbSet<UserPosition> UserPositions { get; set; }
 
         public DbSet<Request> Requests { get; set; }
         public DbSet<VacationRequest> VacationRequests { get; set; }
@@ -29,14 +30,14 @@ namespace WorkScheduleManagement.DAL
         public DbSet<RequestStatuses> RequestStatuses { get; set; }
         public DbSet<VacationTypes> VacationTypes { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // modelBuilder
-            //     .Entity<HolidayRequest>()
-            //     .Property(r => r.Replacer)
-            //     .HasColumnName("HolidayRequest_ReplacerId");
-            
-            base.OnModelCreating(modelBuilder);
-        }
+        // protected override void OnModelCreating(ModelBuilder modelBuilder)
+        // {
+        //     // modelBuilder
+        //     //     .Entity<HolidayRequest>()
+        //     //     .Property(r => r.Replacer)
+        //     //     .HasColumnName("HolidayRequest_ReplacerId");
+        //     
+        //     base.OnModelCreating(modelBuilder);
+        // }
     }
 }

@@ -8,8 +8,8 @@
 /WorkScheduleManagement/bin/
 /WorkScheduleManagement/obj/
 
-/WorkScheduleManagement.DAL/bin/
-/WorkScheduleManagement.DAL/obj/
+/WorkScheduleManagement.Persistence/bin/
+/WorkScheduleManagement.Persistence/obj/
 
 /WorkScheduleManagement.Data/bin/
 /WorkScheduleManagement.Data/obj/

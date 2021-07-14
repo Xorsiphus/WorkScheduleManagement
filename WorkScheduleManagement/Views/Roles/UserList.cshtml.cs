@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WorkScheduleManagement.Views.Users
+namespace WorkScheduleManagement.Views.Roles
 {
-    public class Create : PageModel
+    public class UserList : PageModel
     {
         public void OnGet()
         {
             
         }
-        
     }
 }

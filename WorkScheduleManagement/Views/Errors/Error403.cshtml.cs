@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WorkScheduleManagement.Views.Users
+namespace WorkScheduleManagement.Views.Errors
 {
-    public class Create : PageModel
+    public class Error403 : PageModel
     {
         public void OnGet()
         {
             
         }
-        
     }
 }
