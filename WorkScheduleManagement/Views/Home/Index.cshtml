@@ -14,12 +14,12 @@
 {
     <p>@User.Identity.Name</p>
  
-    <form method="post" asp-controller="Account" asp-action="Logout">
+    <form method="post" asp-controller="Authorization" asp-action="Logout">
         <input type="submit" value="Выход" />
     </form>
 }
 else
 {
-    <p><a asp-controller="Account" asp-action="Login">Вход</a></p>
-    <p><a asp-controller="Account" asp-action="Register">Регистрация</a></p>
+    <p><a asp-controller="Authorization" asp-action="Login">Вход</a></p>
+    <p><a asp-controller="Authorization" asp-action="Register">Регистрация</a></p>
 }

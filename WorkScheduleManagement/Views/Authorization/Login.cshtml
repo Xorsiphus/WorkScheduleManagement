@@ -1,7 +1,7 @@
 ﻿@model WorkScheduleManagement.Application.Models.Users.LoginUserModel
  
 <h2>Вход в приложение</h2>
-<form method="post" asp-controller="Account" asp-action="Login"
+<form method="post" asp-controller="Authorization" asp-action="Login"
       asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
     <div>

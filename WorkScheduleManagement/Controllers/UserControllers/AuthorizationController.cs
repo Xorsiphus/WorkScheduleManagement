@@ -8,13 +8,13 @@ using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Controllers.UserControllers
 {
-    public class AccountController : Controller
+    public class AuthorizationController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMediator _mediator;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+        public AuthorizationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
             IMediator mediator)
         {
             _userManager = userManager;
