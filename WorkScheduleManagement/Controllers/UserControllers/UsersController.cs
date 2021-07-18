@@ -28,13 +28,13 @@ namespace WorkScheduleManagement.Controllers.UserControllers
         [HttpGet]
         public async Task<IActionResult> Create() => View(new CreateUserModel
         {
-            AllPositions = await _mediator.Send(new GetPositions.Query())
+            AllPositions = await _mediator.Send(new GetUserPositions.Query())
         });
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserModel model)
         {
-            model.AllPositions = await _mediator.Send(new GetPositions.Query());
+            model.AllPositions = await _mediator.Send(new GetUserPositions.Query());
             
             if (ModelState.IsValid)
             {
@@ -81,7 +81,8 @@ namespace WorkScheduleManagement.Controllers.UserControllers
                 FullName = user.FullName,
                 Position = user.Position.Id,
                 PhoneNumber = user.PhoneNumber,
-                AllPositions = await _mediator.Send(new GetPositions.Query())
+                UnusedVacationDaysCount = user.UnusedVacationDaysCount,
+                AllPositions = await _mediator.Send(new GetUserPositions.Query())
             };
             return View(model);
         }
@@ -89,7 +90,7 @@ namespace WorkScheduleManagement.Controllers.UserControllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserModel model)
         {
-            model.AllPositions = await _mediator.Send(new GetPositions.Query());
+            model.AllPositions = await _mediator.Send(new GetUserPositions.Query());
             
             if (ModelState.IsValid)
             {
@@ -99,6 +100,7 @@ namespace WorkScheduleManagement.Controllers.UserControllers
                     user.Email = model.Email;
                     user.UserName = model.Email;
                     user.FullName = model.FullName;
+                    user.UnusedVacationDaysCount = model.UnusedVacationDaysCount;
                     user.Position = await _mediator.Send(new GetPositionById.Query(model.Position));
                     user.PhoneNumber = model.PhoneNumber;
 

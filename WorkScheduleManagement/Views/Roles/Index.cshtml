@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<WorkScheduleManagement.Data.Entities.Users.ApplicationUser>
- 
+
+@{
+    ViewData["Title"] = "Роли";
+}
+
 <h2>Список пользователей</h2>
 <table class="table">
     @foreach (var user in Model)

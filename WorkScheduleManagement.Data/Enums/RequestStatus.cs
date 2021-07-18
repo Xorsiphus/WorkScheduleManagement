@@ -5,10 +5,10 @@
         New,
         SentForApproval,
         Agreed,
-        NoyAgreed,
+        NotAgreed,
         Approved,
         NotApproved,
-        Withdrawn,
+        Rejected,
         Canceled
     }
 }

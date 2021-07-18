@@ -1,8 +1,10 @@
-﻿namespace WorkScheduleManagement.Data.Entities
+﻿using WorkScheduleManagement.Data.Enums;
+
+namespace WorkScheduleManagement.Data.Entities
 {
     public class VacationTypes
     {
-        public int Id { get; set; }
+        public VacationType Id { get; set; }
         
         public string Name { get; set; }
     }

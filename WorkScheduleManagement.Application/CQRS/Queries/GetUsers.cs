@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -8,11 +8,11 @@ using WorkScheduleManagement.Persistence;
 
 namespace WorkScheduleManagement.Application.CQRS.Queries
 {
-    public static class GetUserById
+    public static class GetUsers
     {
-        public record Query(string Id) : IRequest<ApplicationUser>;
+        public record Query: IRequest<ICollection<ApplicationUser>>;
 
-        public class Handler : IRequestHandler<Query, ApplicationUser>
+        public class Handler : IRequestHandler<Query, ICollection<ApplicationUser>>
         {
             private readonly AppDbContext _context;
 
@@ -21,14 +21,13 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                 _context = context;
             }
 
-            public async Task<ApplicationUser> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<ICollection<ApplicationUser>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var user = await _context
+                var users = await _context
                     .Users
-                    .Where(u => u.Id == request.Id)
                     .Include(u => u.Position)
-                    .FirstOrDefaultAsync();
-                return user;
+                    .ToListAsync();
+                return users;
             }
         }
     }

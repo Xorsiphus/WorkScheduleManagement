@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WorkScheduleManagement.Data.Entities.Users;
 using WorkScheduleManagement.Persistence;
+using WorkScheduleManagement.Persistence.DbInitialization;
 
 namespace WorkScheduleManagement
 {
@@ -24,8 +25,11 @@ namespace WorkScheduleManagement
                 var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 var context = services.GetRequiredService<AppDbContext>();
                 await RoleInitializer.InitializeAsync(rolesManager);
-                await UserInitializer.InitializeAsync(userManager);
                 await UserPositionsInitializer.InitializeAsync(context);
+                await UserInitializer.InitializeAsync(userManager, context);
+                await RequestStatusesInitializer.InitializeAsync(context);
+                await RequestTypesInitializer.InitializeAsync(context);
+                await VacationTypesInitializer.InitializeAsync(context);
             }
             catch (Exception ex)
             {

@@ -1,8 +1,10 @@
-﻿namespace WorkScheduleManagement.Data.Entities
+﻿using WorkScheduleManagement.Data.Enums;
+
+namespace WorkScheduleManagement.Data.Entities
 {
     public class RequestTypes : IEntity
     {
-        public int Id { get; set; }
+        public RequestType Id { get; set; }
 
         public string Name { get; set; }
     }

@@ -14,13 +14,13 @@ namespace WorkScheduleManagement.Application.Models.Users
         
         [Required]
         public string FullName { get; set; }
-        
-        [Required]
-        public string Role { get; set; }
-        
+
         [Required]
         public int Position { get; set; }
-        
+
+        [Required] 
+        public int UnusedVacationDaysCount { get; set; }
+
         public List<UserPosition> AllPositions { get; set; }
         
         [Required]

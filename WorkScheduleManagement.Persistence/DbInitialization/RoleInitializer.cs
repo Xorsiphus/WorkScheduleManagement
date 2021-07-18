@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace WorkScheduleManagement.Persistence
+namespace WorkScheduleManagement.Persistence.DbInitialization
 {
     public static class RoleInitializer
     {

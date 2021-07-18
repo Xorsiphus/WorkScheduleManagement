@@ -25,13 +25,13 @@ namespace WorkScheduleManagement.Controllers.UserControllers
         [HttpGet]
         public async Task<IActionResult> Register()
         {
-            return View(new RegisterUserModel {AllPositions = await _mediator.Send(new GetPositions.Query())});
+            return View(new RegisterUserModel {AllPositions = await _mediator.Send(new GetUserPositions.Query())});
         }
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserModel model)
         {
-            model.AllPositions = await _mediator.Send(new GetPositions.Query());
+            model.AllPositions = await _mediator.Send(new GetUserPositions.Query());
 
             if (ModelState.IsValid)
             {

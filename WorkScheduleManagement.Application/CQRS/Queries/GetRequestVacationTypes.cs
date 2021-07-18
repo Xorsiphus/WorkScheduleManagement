@@ -3,28 +3,28 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using WorkScheduleManagement.Data.Entities.Requests;
+using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Persistence;
 
 namespace WorkScheduleManagement.Application.CQRS.Queries
 {
-    public static class GetRequests
+    public static class GetRequestVacationTypes
     {
-        public record Query : IRequest<List<Request>>;
+        public record Query : IRequest<List<VacationTypes>>;
 
-        public class Handler : IRequestHandler<Query, List<Request>>
+        public class Handler : IRequestHandler<Query, List<VacationTypes>>
         {
             private readonly AppDbContext _context;
-            
+
             public Handler(AppDbContext context)
             {
                 _context = context;
             }
-            
-            public async Task<List<Request>> Handle(Query request, CancellationToken cancellationToken)
+
+            public async Task<List<VacationTypes>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var positions = await _context.Requests.ToListAsync();
-                return positions;
+                var vacationTypes = await _context.VacationTypes.ToListAsync();
+                return vacationTypes;
             }
         }
     }

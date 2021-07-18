@@ -16,8 +16,15 @@
     <p>
         <a asp-controller="Requests" asp-action="Index">Управление заявками</a>
     </p>
-
+    
     @if (User.IsInRole("admin"))
+    {
+        <p>
+            <a asp-controller="Users" asp-action="Index">Управление пользователями</a>
+        </p>
+    }
+
+    @if (User.IsInRole("admin") || User.IsInRole("director"))
     {
         <p>
             <a asp-controller="Roles" asp-action="Index">Управление ролями пользователей</a>

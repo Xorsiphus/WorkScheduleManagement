@@ -1,13 +1,31 @@
 ﻿@* @model IEnumerable<> *@
  
-<h2>Список запросов:</h2>
+@{
+    ViewData["Title"] = "Заявки";
+}
+
+<a asp-action="Create">Создать заявку</a>
+<hr/>
+
+<h2>Список заявок:</h2>
 <table class="table">
+    <tr>
+        <th>Email</th><th>Год</th><th>Должность</th><th>Количество отпускных</th><th></th>
+    </tr>
     @* @foreach (var user in Model) *@
     @* { *@
     @*     <tr> *@
     @*         <td>@user.Email</td> *@
+    @*         <td>@user.FullName</td> *@
+    @*         <td>@user.Position</td> *@
+    @*         <td>@user.UnusedVacationDaysCount</td> *@
     @*         <td> *@
-    @*              *@
+    @*             <form asp-action="Delete" asp-route-id="@user.Id" method="post"> *@
+    @*                 <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Изменить</a> *@
+    @*                 <button type="submit" class="btn btn-sm btn-danger"> *@
+    @*                     Удалить *@
+    @*                 </button> *@
+    @*             </form> *@
     @*         </td> *@
     @*     </tr> *@
     @* } *@

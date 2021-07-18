@@ -26,8 +26,7 @@ namespace WorkScheduleManagement.Migrations
                 name: "RequestStatuses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -39,8 +38,7 @@ namespace WorkScheduleManagement.Migrations
                 name: "RequestTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -66,8 +64,7 @@ namespace WorkScheduleManagement.Migrations
                 name: "VacationTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -222,7 +219,7 @@ namespace WorkScheduleManagement.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: true),
                     RequestTypesId = table.Column<int>(type: "integer", nullable: true),
-                    RequestStatusesId = table.Column<int>(type: "integer", nullable: true),
+                    RequestStatusId = table.Column<int>(type: "integer", nullable: true),
                     ApproverId = table.Column<string>(type: "text", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     SentAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -277,8 +274,8 @@ namespace WorkScheduleManagement.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Requests_RequestStatuses_RequestStatusesId",
-                        column: x => x.RequestStatusesId,
+                        name: "FK_Requests_RequestStatuses_RequestStatusId",
+                        column: x => x.RequestStatusId,
                         principalTable: "RequestStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -416,9 +413,9 @@ namespace WorkScheduleManagement.Migrations
                 column: "ReplacerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Requests_RequestStatusesId",
+                name: "IX_Requests_RequestStatusId",
                 table: "Requests",
-                column: "RequestStatusesId");
+                column: "RequestStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requests_RequestTypesId",

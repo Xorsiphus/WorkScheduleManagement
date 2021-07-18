@@ -32,7 +32,7 @@ namespace WorkScheduleManagement
                     b => b.MigrationsAssembly("WorkScheduleManagement"));
                 options.EnableSensitiveDataLogging();
             });
-            
+
             services.AddIdentity<ApplicationUser, IdentityRole>(opts=> {
                     opts.Password.RequiredLength = 5;
                     opts.Password.RequireNonAlphanumeric = false;
@@ -48,6 +48,7 @@ namespace WorkScheduleManagement
 
             services.ConfigureApplicationCookie(options =>
             {
+                options.LoginPath = new PathString("/Authorization/Login");
                 options.AccessDeniedPath = new PathString("/Errors/Error403");
             });
             

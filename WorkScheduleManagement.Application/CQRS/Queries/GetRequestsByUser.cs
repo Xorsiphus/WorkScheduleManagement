@@ -8,7 +8,7 @@ using WorkScheduleManagement.Persistence;
 
 namespace WorkScheduleManagement.Application.CQRS.Queries
 {
-    public static class GetRequests
+    public static class GetRequestsByUser
     {
         public record Query : IRequest<List<Request>>;
 

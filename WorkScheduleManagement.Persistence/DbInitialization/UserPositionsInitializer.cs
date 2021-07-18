@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WorkScheduleManagement.Data.Entities.Users;
 
-namespace WorkScheduleManagement.Persistence
+namespace WorkScheduleManagement.Persistence.DbInitialization
 {
     public static class UserPositionsInitializer
     {

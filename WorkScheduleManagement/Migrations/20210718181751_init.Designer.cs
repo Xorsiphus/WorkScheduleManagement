@@ -10,7 +10,7 @@ using WorkScheduleManagement.Persistence;
 namespace WorkScheduleManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210718091137_init")]
+    [Migration("20210718181751_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,9 +154,7 @@ namespace WorkScheduleManagement.Migrations
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.RequestStatuses", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -169,9 +167,7 @@ namespace WorkScheduleManagement.Migrations
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.RequestTypes", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -203,7 +199,7 @@ namespace WorkScheduleManagement.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("RequestStatusesId")
+                    b.Property<int?>("RequestStatusId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("RequestTypesId")
@@ -218,7 +214,7 @@ namespace WorkScheduleManagement.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("RequestStatusesId");
+                    b.HasIndex("RequestStatusId");
 
                     b.HasIndex("RequestTypesId");
 
@@ -372,9 +368,7 @@ namespace WorkScheduleManagement.Migrations
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.VacationTypes", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -517,9 +511,9 @@ namespace WorkScheduleManagement.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId");
 
-                    b.HasOne("WorkScheduleManagement.Data.Entities.RequestStatuses", "RequestStatuses")
+                    b.HasOne("WorkScheduleManagement.Data.Entities.RequestStatuses", "RequestStatus")
                         .WithMany()
-                        .HasForeignKey("RequestStatusesId");
+                        .HasForeignKey("RequestStatusId");
 
                     b.HasOne("WorkScheduleManagement.Data.Entities.RequestTypes", "RequestTypes")
                         .WithMany()
@@ -529,7 +523,7 @@ namespace WorkScheduleManagement.Migrations
 
                     b.Navigation("Creator");
 
-                    b.Navigation("RequestStatuses");
+                    b.Navigation("RequestStatus");
 
                     b.Navigation("RequestTypes");
                 });

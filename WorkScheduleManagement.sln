@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Application", "WorkScheduleManagement.Application\WorkScheduleManagement.Application.csproj", "{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAuth", "TestAuth\TestAuth.csproj", "{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkScheduleManagement.Persistence", "WorkScheduleManagement.Persistence\WorkScheduleManagement.Persistence.csproj", "{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}"
 EndProject
 Global
@@ -28,10 +26,6 @@ Global
 		{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A79E29AD-42A5-43B9-AD84-3C1D7C435AA2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AFF9F3A-A33E-484E-958D-15BB6A0FC9D6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{282AF2A3-0CCD-4500-AE39-2C5A7D7D6DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -24,7 +24,7 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
             public async Task<UserPosition> Handle(Query request, CancellationToken cancellationToken)
             {
                 var position = await _context.UserPositions.Where(p => p.Id == request.Id).FirstOrDefaultAsync();
-                return position == null ? null : position;
+                return position;
             }
         }
     }

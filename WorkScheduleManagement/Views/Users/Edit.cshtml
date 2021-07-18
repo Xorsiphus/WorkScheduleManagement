@@ -16,10 +16,6 @@
         <input type="text" asp-for="FullName" class="form-control"/>
     </div>
     <div class="form-group">
-        <label asp-for="Role" class="control-label">Роль в системе</label>
-        <input type="text" asp-for="Role" class="form-control"/>
-    </div>
-    <div class="form-group">
         <label asp-for="Position" class="control-label">Должность</label>
         @Html.DropDownList("Position", new SelectList(Model.AllPositions, "Id", "Name", Model.Position), new {@class = "form-control"})
     </div>
@@ -27,6 +23,10 @@
         <label asp-for="PhoneNumber" class="control-label">Номер телефона</label>
         <input type="text" asp-for="PhoneNumber" class="form-control"/>
     </div>
+    <div class="form-group">
+            <label asp-for="UnusedVacationDaysCount" class="control-label">Количество отпускных:</label>
+            <input type="text" asp-for="UnusedVacationDaysCount" class="form-control"/>
+        </div>
     <div class="form-group">
         <input type="submit" value="Сохранить" class="btn btn-outline-secondary"/>
     </div>

@@ -19,7 +19,7 @@ namespace WorkScheduleManagement.Controllers
         [HttpGet("User/Positions")]
         public async Task<IActionResult> GetPositions()
         {
-            var response = await _mediator.Send(new GetPositions.Query());
+            var response = await _mediator.Send(new GetUserPositions.Query());
             return response == null ? NotFound() : Ok(response);
         }
     }

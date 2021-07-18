@@ -14,10 +14,7 @@ namespace WorkScheduleManagement.Application.Models.Users
         
         [Required]
         public string FullName { get; set; }
-        
-        [Required]
-        public string Role { get; set; }
-        
+
         [Required]
         public int Position { get; set; }
         

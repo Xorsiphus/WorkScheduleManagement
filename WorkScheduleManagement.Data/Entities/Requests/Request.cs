@@ -11,7 +11,7 @@ namespace WorkScheduleManagement.Data.Entities.Requests
 
         public RequestTypes RequestTypes { get; set; }
         
-        public RequestStatuses RequestStatuses { get; set; }
+        public RequestStatuses RequestStatus { get; set; }
 
         public ApplicationUser Approver { get; set; }
 

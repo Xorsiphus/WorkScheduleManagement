@@ -22,9 +22,4 @@
       </PackageReference>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="CQRS" />
-      <Folder Include="Models\Roles" />
-    </ItemGroup>
-
 </Project>
