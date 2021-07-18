@@ -30,14 +30,14 @@ namespace WorkScheduleManagement.Persistence
         public DbSet<RequestStatuses> RequestStatuses { get; set; }
         public DbSet<VacationTypes> VacationTypes { get; set; }
 
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     // modelBuilder
-        //     //     .Entity<HolidayRequest>()
-        //     //     .Property(r => r.Replacer)
-        //     //     .HasColumnName("HolidayRequest_ReplacerId");
-        //     
-        //     base.OnModelCreating(modelBuilder);
-        // }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<UserPosition>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+            
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

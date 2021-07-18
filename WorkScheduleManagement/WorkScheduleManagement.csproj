@@ -28,8 +28,4 @@
       <ProjectReference Include="..\WorkScheduleManagement.Application\WorkScheduleManagement.Application.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controllers\RequestControllers" />
-    </ItemGroup>
-
 </Project>

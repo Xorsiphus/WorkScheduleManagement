@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WorkScheduleManagement.Views.Roles
+namespace WorkScheduleManagement.Views.Requests
 {
-    public class UserList : PageModel
+    public class Index : PageModel
     {
         public void OnGet()
         {

@@ -10,7 +10,6 @@ using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Controllers.UserControllers
 {
-    [Authorize(Roles = "admin")]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -23,6 +22,7 @@ namespace WorkScheduleManagement.Controllers.UserControllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult Index() => View(_userManager.Users.ToList());
 
         [HttpGet]

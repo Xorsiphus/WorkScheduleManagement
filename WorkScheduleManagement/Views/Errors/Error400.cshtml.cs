@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WorkScheduleManagement.Views.Roles
+namespace WorkScheduleManagement.Views.Errors
 {
-    public class Create : PageModel
+    public class Error400 : PageModel
     {
         public void OnGet()
         {

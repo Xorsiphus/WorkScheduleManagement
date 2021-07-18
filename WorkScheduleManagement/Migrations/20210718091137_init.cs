@@ -434,6 +434,12 @@ namespace WorkScheduleManagement.Migrations
                 name: "IX_Requests_VacationTypeId",
                 table: "Requests",
                 column: "VacationTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserPositions_Name",
+                table: "UserPositions",
+                column: "Name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

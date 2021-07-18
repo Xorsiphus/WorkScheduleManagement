@@ -4,22 +4,36 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
 @{
     System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
 }
-@if(User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated)
 {
     <p>@User.Identity.Name</p>
- 
+
+    <p>
+        <a asp-controller="Requests" asp-action="Index">Управление заявками</a>
+    </p>
+
+    @if (User.IsInRole("admin"))
+    {
+        <p>
+            <a asp-controller="Roles" asp-action="Index">Управление ролями пользователей</a>
+        </p>
+    }
+
     <form method="post" asp-controller="Authorization" asp-action="Logout">
-        <input type="submit" value="Выход" />
+        <input type="submit" value="Выход"/>
     </form>
 }
 else
 {
-    <p><a asp-controller="Authorization" asp-action="Login">Вход</a></p>
-    <p><a asp-controller="Authorization" asp-action="Register">Регистрация</a></p>
+    <p>
+        <a asp-controller="Authorization" asp-action="Login">Вход</a>
+    </p>
+    <p>
+        <a asp-controller="Authorization" asp-action="Register">Регистрация</a>
+    </p>
 }

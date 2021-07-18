@@ -3,16 +3,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using WorkScheduleManagement.Data.Entities.Users;
+using WorkScheduleManagement.Data.Entities.Requests;
 using WorkScheduleManagement.Persistence;
 
 namespace WorkScheduleManagement.Application.CQRS.Queries
 {
-    public static class GetPositions
+    public class GetRequests
     {
-        public record Query : IRequest<List<UserPosition>>;
+        public record Query : IRequest<List<Request>>;
 
-        public class Handler : IRequestHandler<Query, List<UserPosition>>
+        public class Handler : IRequestHandler<Query, List<Request>>
         {
             private readonly AppDbContext _context;
             
@@ -21,9 +21,9 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                 _context = context;
             }
             
-            public async Task<List<UserPosition>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<Request>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var positions = await _context.UserPositions.ToListAsync();
+                var positions = await _context.Requests.ToListAsync();
                 return positions;
             }
         }
