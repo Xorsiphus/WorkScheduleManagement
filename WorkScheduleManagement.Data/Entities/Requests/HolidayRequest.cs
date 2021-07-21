@@ -1,9 +1,14 @@
-﻿using WorkScheduleManagement.Data.Entities.Users;
+﻿using System;
+using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Data.Entities.Requests
 {
     public class HolidayRequest : Request
     {
         public ApplicationUser Replacer { get; set; }
+        
+        public DateTime DateFrom { get; set; }
+        
+        public DateTime DateTo { get; set; }
     }
 }

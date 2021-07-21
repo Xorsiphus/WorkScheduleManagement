@@ -1,0 +1,32 @@
+﻿.CustomDayContainer {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+
+.before {
+    font-size: 15px;
+    -webkit-transition: -webkit-transform .3s;
+    transition: -webkit-transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+    cursor: pointer;
+    content: "+";
+    color: white;
+    display: inline-block;
+    margin-right: 6px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.before:hover {
+    color: #71ce73;
+}
+
+.before-down {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

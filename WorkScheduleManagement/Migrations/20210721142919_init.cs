@@ -228,10 +228,12 @@ namespace WorkScheduleManagement.Migrations
                     DayOffInsteadOverworkingRequest_ReplacerId = table.Column<string>(type: "text", nullable: true),
                     DayOffInsteadVacationRequest_ReplacerId = table.Column<string>(type: "text", nullable: true),
                     ReplacerId = table.Column<string>(type: "text", nullable: true),
-                    VacationTypeId = table.Column<int>(type: "integer", nullable: true),
-                    VacationRequest_ReplacerId = table.Column<string>(type: "text", nullable: true),
                     DateFrom = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     DateTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    VacationTypeId = table.Column<int>(type: "integer", nullable: true),
+                    VacationRequest_ReplacerId = table.Column<string>(type: "text", nullable: true),
+                    VacationRequest_DateFrom = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    VacationRequest_DateTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsShifting = table.Column<bool>(type: "boolean", nullable: true)
                 },
                 constraints: table =>
@@ -431,12 +433,6 @@ namespace WorkScheduleManagement.Migrations
                 name: "IX_Requests_VacationTypeId",
                 table: "Requests",
                 column: "VacationTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserPositions_Name",
-                table: "UserPositions",
-                column: "Name",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

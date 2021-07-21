@@ -10,6 +10,8 @@ namespace WorkScheduleManagement.Application.ModelValidators
         public override bool IsValid(object value)
         {
             var requestDate = (DateTime)value;
+            if (requestDate == DateTime.MinValue)
+                return true;
             return requestDate >= DateTime.Today;
         }
 

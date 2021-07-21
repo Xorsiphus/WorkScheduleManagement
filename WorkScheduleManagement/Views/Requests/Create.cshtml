@@ -6,50 +6,223 @@
 
 <form asp-action="Create" asp-controller="Requests">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
+    <div class="form-group" id="FormType">
         <label asp-for="Type" class="control-label">Тип заявки:</label>
         @Html.DropDownList("Type", new SelectList(Model.AllTypes, "Id", "Name"), new {@class = "form-control"})
     </div>
     <hr/>
 
-    <div class="form-group">
+    <div class="form-group" id="FormReplacer">
         <label asp-for="AllReplacerUsers" class="control-label">Замещающий сотрудник:</label>
         @Html.DropDownList("Replacer", new SelectList(Model.AllReplacerUsers, "Id", "FullName", ""), new {@class = "form-control"})
     </div>
 
-    <div class="form-group">
+    <div class="form-group" id="FormApprover">
         <label asp-for="AllApproverUsers" class="control-label">Согласующий сотрудник:</label>
         @Html.DropDownList("Approver", new SelectList(Model.AllApproverUsers, "Id", "FullName", ""), new {@class = "form-control"})
     </div>
 
-    <div class="form-group">
+    <div class="form-group" id="FormVacationType">
         <label asp-for="VacationType" class="control-label">Тип отпуска:</label>
         @Html.DropDownList("VacationType", new SelectList(Model.AllVacationTypes, "Id", "Name"), new {@class = "form-control"})
     </div>
 
-    <div class="form-group">
+    <div class="form-group" id="FormComment">
         <label asp-for="Comment" class="control-label">Комментарий: </label>
         @Html.EditorFor(model => model.Comment, new {htmlAttributes = new {@class = "form-control"}})
     </div>
 
-    <div class="form-group">
+    <div class="form-group" id="FormDateFrom">
         <label asp-for="DateFrom" class="control-label">Дата начала: </label>
         @Html.EditorFor(model => model.DateFrom)
         <span asp-validation-for="DateFrom"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" id="FormDateTo">
         <label asp-for="DateTo" class="control-label">Дата окончания: </label>
         @Html.EditorFor(model => model.DateTo)
         <span asp-validation-for="DateTo"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" id="FormIsShifting">
         <label asp-for="IsShifting" class="control-label">Возможность передвинуть: </label>
         <input type="checkbox" asp-for="IsShifting" name="IsShifting"/>
+    </div>
+
+    <link rel="stylesheet" href="~/css/requests.css"/>
+    <div class="form-group" id="FormCustomDate">
     </div>
 
     <div class="form-group">
         <input type="submit" value="Создать" class="btn btn-outline-success"/>
     </div>
 </form>
+
+@section Scripts
+{
+    <script>
+    
+    let daysCount = 0;
+    
+    const addCustomDayInput = (customDayContainer) => {
+        const dateInput = document.createElement('input');
+        dateInput.setAttribute('class', 'text-box');
+        dateInput.setAttribute('class', 'single-line');
+        dateInput.setAttribute('data-val', 'true');
+        dateInput.setAttribute('type', 'date');
+        
+        dateInput.setAttribute('name', 'CustomDays');
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let yyyy = today.getFullYear();        
+        today = yyyy + '-' + mm + '-' + dd;
+        dateInput.setAttribute('value', today.toString());
+        customDayContainer.appendChild(dateInput);
+        
+        if (sessionStorage.getItem("requestType") === "OnRemoteWork"){
+            const planInput = document.createElement('input');
+            planInput.setAttribute('name', 'RemotePlans');
+            planInput.style.width = "50%";
+            
+            const planLabel = document.createElement('span');
+            planLabel.textContent = "  План удалённой работы: "
+            customDayContainer.appendChild(planLabel);
+            customDayContainer.appendChild(planInput);
+        }
+    }
+    
+    const addCustomDate = (parentContainer) => {
+        const firstDayContainer = document.createElement('div');
+        firstDayContainer.setAttribute("class", "CustomDayContainer");
+        const dayPrefix = document.createElement('span');
+        dayPrefix.setAttribute('class', 'before');
+        dayPrefix.textContent = "➕";
+
+        const dayLabel = document.createElement('span');
+        dayLabel.textContent = "Добавить день";  
+        
+        firstDayContainer.appendChild(dayPrefix);
+        firstDayContainer.appendChild(dayLabel);
+        
+        dayPrefix.addEventListener('click', () => {
+            if (firstDayContainer.children[0].classList.contains('before-down')){
+                while (firstDayContainer.firstChild) {
+                    firstDayContainer.removeChild(firstDayContainer.firstChild);
+                }
+                if (daysCount > 0)
+                    daysCount -= 1;
+                firstDayContainer.remove();
+            } else {
+                firstDayContainer.children[1].textContent = "Выберите дату:  ";
+                addCustomDayInput(firstDayContainer);
+                addCustomDate(parentContainer);
+                daysCount += 1;
+                firstDayContainer.children[0].classList.toggle("before-down");
+            }
+            console.log(daysCount);
+        });
+        
+        parentContainer.appendChild(firstDayContainer);
+    }
+           
+    const drawCustomDays = () => {
+        const customDaysContainer = document.getElementById("FormCustomDate");
+        
+        if (customDaysContainer.children.length === 0) {
+            const label = document.createElement('span');
+            label.setAttribute('class', 'control-label');
+            label.textContent = "Одиночные дни/отработка:";
+            customDaysContainer.appendChild(label);
+            
+            addCustomDate(customDaysContainer);
+        }
+    }
+    
+    const hideCustomDays = () => {
+        const customDaysContainer = document.getElementById("FormCustomDate");
+        
+         while (customDaysContainer.firstChild) {
+             customDaysContainer.removeChild(customDaysContainer.firstChild);
+         }
+    }
+    
+    
+    const updateRequestType = (requestType) => {
+        const requestFormComment = document.getElementById("Comment");
+        const requestFormReplacer = document.getElementById("Replacer");
+        const requestFormApprover = document.getElementById("Approver");
+        const requestFormVacationType = document.getElementById("VacationType");
+        const requestFormDateFrom = document.getElementById("DateFrom");
+        const requestFormDateTo = document.getElementById("DateTo");
+        const requestFormIsShifting = document.getElementById("IsShifting");
+        hideCustomDays();
+                
+        switch (requestType){
+            case "OnVacation":
+                requestFormComment.disabled = false;
+                requestFormReplacer.disabled = false;
+                requestFormApprover.disabled = false;
+                requestFormVacationType.disabled = false;
+                requestFormDateFrom.disabled = false;
+                requestFormDateTo.disabled = false;
+                requestFormIsShifting.disabled = false;
+                hideCustomDays();
+                break; 
+            case "OnDayOffInsteadVacation":
+                requestFormComment.disabled = false;
+                requestFormReplacer.disabled = false;
+                requestFormApprover.disabled = false;
+                requestFormVacationType.disabled = true;
+                requestFormDateFrom.disabled = true;
+                requestFormDateTo.disabled = true;
+                requestFormIsShifting.disabled = true;
+                drawCustomDays();
+                break;
+            case "OnHoliday":
+                requestFormComment.disabled = false;
+                requestFormReplacer.disabled = false;
+                requestFormApprover.disabled = false;
+                requestFormVacationType.disabled = true;
+                requestFormDateFrom.disabled = true;
+                requestFormDateTo.disabled = true;
+                requestFormIsShifting.disabled = true;
+                drawCustomDays();
+                break;
+            case "OnDayOffInsteadOverworking":
+                requestFormComment.disabled = false;
+                requestFormReplacer.disabled = false;
+                requestFormApprover.disabled = false;
+                requestFormVacationType.disabled = true;
+                requestFormDateFrom.disabled = false;
+                requestFormDateTo.disabled = false;
+                requestFormIsShifting.disabled = true;
+                drawCustomDays();
+                break;
+            case "OnRemoteWork":
+                requestFormComment.disabled = false;
+                requestFormReplacer.disabled = true;
+                requestFormApprover.disabled = false;
+                requestFormVacationType.disabled = true;
+                requestFormDateFrom.disabled = true;
+                requestFormDateTo.disabled = true;
+                requestFormIsShifting.disabled = true;
+                drawCustomDays();
+                break;
+            default:
+                console.log("Wrong request type!");
+                break;
+            }
+        }
+    
+    $(document).ready(() => {
+        const requestTypeContainer = document.getElementById("Type");
+        requestTypeContainer.addEventListener('change', (event) => {
+            updateRequestType(event.target.value);
+            sessionStorage.setItem("requestType", event.target.value);
+        });
+
+        });
+    </script>
+
+}

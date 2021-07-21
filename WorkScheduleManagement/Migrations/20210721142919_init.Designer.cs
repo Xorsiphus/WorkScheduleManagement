@@ -10,7 +10,7 @@ using WorkScheduleManagement.Persistence;
 namespace WorkScheduleManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210721101121_init")]
+    [Migration("20210721142919_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -359,9 +359,6 @@ namespace WorkScheduleManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("UserPositions");
                 });
 
@@ -408,6 +405,12 @@ namespace WorkScheduleManagement.Migrations
                 {
                     b.HasBaseType("WorkScheduleManagement.Data.Entities.Requests.Request");
 
+                    b.Property<DateTime>("DateFrom")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("DateTo")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("ReplacerId")
                         .HasColumnType("text");
 
@@ -428,10 +431,12 @@ namespace WorkScheduleManagement.Migrations
                     b.HasBaseType("WorkScheduleManagement.Data.Entities.Requests.Request");
 
                     b.Property<DateTime>("DateFrom")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("VacationRequest_DateFrom");
 
                     b.Property<DateTime>("DateTo")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("VacationRequest_DateTo");
 
                     b.Property<bool>("IsShifting")
                         .HasColumnType("boolean");

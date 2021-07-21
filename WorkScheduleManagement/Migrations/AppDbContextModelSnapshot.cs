@@ -357,9 +357,6 @@ namespace WorkScheduleManagement.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("UserPositions");
                 });
 
@@ -406,6 +403,12 @@ namespace WorkScheduleManagement.Migrations
                 {
                     b.HasBaseType("WorkScheduleManagement.Data.Entities.Requests.Request");
 
+                    b.Property<DateTime>("DateFrom")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("DateTo")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("ReplacerId")
                         .HasColumnType("text");
 
@@ -426,10 +429,12 @@ namespace WorkScheduleManagement.Migrations
                     b.HasBaseType("WorkScheduleManagement.Data.Entities.Requests.Request");
 
                     b.Property<DateTime>("DateFrom")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("VacationRequest_DateFrom");
 
                     b.Property<DateTime>("DateTo")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("VacationRequest_DateTo");
 
                     b.Property<bool>("IsShifting")
                         .HasColumnType("boolean");

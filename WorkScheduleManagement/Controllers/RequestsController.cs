@@ -68,33 +68,43 @@ namespace WorkScheduleManagement.Controllers
                             CreatedAt = DateTime.Now,
                             RequestTypes = await _mediator.Send(new GetRequestTypeById.Query(model.Type)),
                             Comment = model.Comment,
+                            RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
+                            DateFrom = model.DateFrom,
+                            DateTo = model.DateTo,
+                            
                         };
                         break;
                     case RequestType.OnRemoteWork:
-                        newRequest = new HolidayRequest
+                        newRequest = new RemoteWorkRequest
                         {
                             Creator = await _mediator.Send(new GetUserById.Query(userId)),
                             CreatedAt = DateTime.Now,
                             RequestTypes = await _mediator.Send(new GetRequestTypeById.Query(model.Type)),
                             Comment = model.Comment,
+                            RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
+                            
                         };
                         break;
                     case RequestType.OnDayOffInsteadOverworking:
-                        newRequest = new HolidayRequest
+                        newRequest = new DayOffInsteadOverworkingRequest
                         {
                             Creator = await _mediator.Send(new GetUserById.Query(userId)),
                             CreatedAt = DateTime.Now,
                             RequestTypes = await _mediator.Send(new GetRequestTypeById.Query(model.Type)),
                             Comment = model.Comment,
+                            RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
+                            
                         };
                         break;
                     case RequestType.OnDayOffInsteadVacation:
-                        newRequest = new HolidayRequest
+                        newRequest = new DayOffInsteadVacationRequest
                         {
                             Creator = await _mediator.Send(new GetUserById.Query(userId)),
                             CreatedAt = DateTime.Now,
                             RequestTypes = await _mediator.Send(new GetRequestTypeById.Query(model.Type)),
                             Comment = model.Comment,
+                            RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
+
                         };
                         break;
                     case RequestType.OnVacation:
@@ -104,10 +114,10 @@ namespace WorkScheduleManagement.Controllers
                             CreatedAt = DateTime.Now,
                             RequestTypes = await _mediator.Send(new GetRequestTypeById.Query(model.Type)),
                             Comment = model.Comment,
+                            RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
 
                             DateFrom = model.DateFrom,
                             DateTo = model.DateTo,
-                            RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
                             VacationType =
                                 await _mediator.Send(new GetRequestVacationTypeById.Query(model.VacationType)),
                             Replacer = await _mediator.Send(new GetUserById.Query(model.Replacer)),
