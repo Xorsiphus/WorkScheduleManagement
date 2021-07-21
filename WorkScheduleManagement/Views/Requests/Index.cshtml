@@ -1,4 +1,4 @@
-﻿@* @model IEnumerable<> *@
+﻿@model IEnumerable<WorkScheduleManagement.Application.Models.Requests.RequestsTableModel>
  
 @{
     ViewData["Title"] = "Заявки";
@@ -10,23 +10,24 @@
 <h2>Список заявок:</h2>
 <table class="table">
     <tr>
-        <th>Email</th><th>Год</th><th>Должность</th><th>Количество отпускных</th><th></th>
+        <th>Податель заявки</th><th>Тип заявки</th><th>Статус заявки</th><th>Выбранные даты</th><th>Количество отпускных</th><th></th>
     </tr>
-    @* @foreach (var user in Model) *@
-    @* { *@
-    @*     <tr> *@
-    @*         <td>@user.Email</td> *@
-    @*         <td>@user.FullName</td> *@
-    @*         <td>@user.Position</td> *@
-    @*         <td>@user.UnusedVacationDaysCount</td> *@
-    @*         <td> *@
-    @*             <form asp-action="Delete" asp-route-id="@user.Id" method="post"> *@
-    @*                 <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Изменить</a> *@
-    @*                 <button type="submit" class="btn btn-sm btn-danger"> *@
-    @*                     Удалить *@
-    @*                 </button> *@
-    @*             </form> *@
-    @*         </td> *@
-    @*     </tr> *@
-    @* } *@
+    @foreach (var request in Model)
+    {
+        <tr>
+            <td>@request.Creator</td>
+            <td>@request.RequestType</td>
+            <td>@request.RequestStatus</td>
+            <td>@request.SelectedDates</td>
+            <td>@request.CountOfVacationDays</td>
+            <td>
+                @* <form asp-action="Edit" asp-route-id="@user.Id" method="post"> *@
+                @*     <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Изменить</a> *@
+                @*     <button type="submit" class="btn btn-sm btn-danger"> *@
+                @*         Удалить *@
+                @*     </button> *@
+                @* </form> *@
+            </td>
+        </tr>
+    }
 </table>

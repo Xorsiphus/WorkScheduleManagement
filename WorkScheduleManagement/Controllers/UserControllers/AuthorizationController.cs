@@ -41,12 +41,14 @@ namespace WorkScheduleManagement.Controllers.UserControllers
                     UserName = model.Email,
                     FullName = model.FullName,
                     PhoneNumber = model.PhoneNumber,
+                    Position = await _mediator.Send(new GetPositionById.Query(model.Position)),
                     UnusedVacationDaysCount = 20
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "employee");
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }

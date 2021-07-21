@@ -25,8 +25,8 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
 
             public async Task<RequestTypes> Handle(Query request, CancellationToken cancellationToken)
             {
-                var status = await _context.RequestTypes.Where(t => t.Id == request.Id).FirstOrDefaultAsync();
-                return status;
+                var type = await _context.RequestTypes.Where(t => t.Id == request.Id).FirstOrDefaultAsync();
+                return type;
             }
         }
     }

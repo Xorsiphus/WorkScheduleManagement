@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,16 +10,19 @@ using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Controllers.UserControllers
 {
-    [Authorize(Roles = "admin,director")]
+    [Authorize(Roles = "director")]
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        // private readonly SignInManager<ApplicationUser> _singInManager;
 
         public RolesController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+            // SignInManager<ApplicationUser> signInManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
+            // _singInManager = signInManager;
         }
 
         [HttpGet]
@@ -56,12 +58,10 @@ namespace WorkScheduleManagement.Controllers.UserControllers
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var addedRoles = roles.Except(userRoles).ToList();
                 var removedRoles = userRoles.Except(roles).ToList();
-                
+
                 await _userManager.AddToRolesAsync(user, addedRoles);
 
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
-                
-                // var claimsRoles = User.FindAll(ClaimTypes.Role);
 
                 return RedirectToAction("Index");
             }

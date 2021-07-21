@@ -1,4 +1,6 @@
-﻿@{
+﻿@model WorkScheduleManagement.Data.Entities.Users.ApplicationUser
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -11,20 +13,22 @@
 }
 @if (User.Identity.IsAuthenticated)
 {
-    <p>@User.Identity.Name</p>
+    <p>@Model.FullName</p>
+    <p>@Model.Email</p>
 
     <p>
         <a asp-controller="Requests" asp-action="Index">Управление заявками</a>
     </p>
     
-    @if (User.IsInRole("admin"))
+    @if (User.IsInRole("admin") || User.IsInRole("director") || User.IsInRole("supervisor"))
     {
         <p>
             <a asp-controller="Users" asp-action="Index">Управление пользователями</a>
         </p>
     }
 
-    @if (User.IsInRole("admin") || User.IsInRole("director"))
+    @if (User.IsInRole("director"))
+    
     {
         <p>
             <a asp-controller="Roles" asp-action="Index">Управление ролями пользователей</a>
@@ -32,15 +36,15 @@
     }
 
     <form method="post" asp-controller="Authorization" asp-action="Logout">
-        <input type="submit" value="Выход"/>
+        <input type="submit" value="Выход" class="btn btn-outline-secondary"/>
     </form>
 }
 else
 {
     <p>
-        <a asp-controller="Authorization" asp-action="Login">Вход</a>
+        <a asp-controller="Authorization" asp-action="Login" class="btn btn-success">Вход</a>
     </p>
     <p>
-        <a asp-controller="Authorization" asp-action="Register">Регистрация</a>
+        <a asp-controller="Authorization" asp-action="Register" class="btn btn-primary">Регистрация</a>
     </p>
 }

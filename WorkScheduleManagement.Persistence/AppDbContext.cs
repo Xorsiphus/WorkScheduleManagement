@@ -32,10 +32,10 @@ namespace WorkScheduleManagement.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder
-                .Entity<UserPosition>()
-                .HasIndex(u => u.Name)
-                .IsUnique();
+            // modelBuilder
+            //     .Entity<UserPosition>()
+            //     .HasIndex(u => u.Name)
+            //     .IsUnique();
             
             base.OnModelCreating(modelBuilder);
         }

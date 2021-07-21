@@ -24,12 +24,12 @@ namespace WorkScheduleManagement
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                 var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 var context = services.GetRequiredService<AppDbContext>();
+                await RequestStatusesInitializer.InitializeAsync(context);
+                await RequestTypesInitializer.InitializeAsync(context);
+                await RequestVacationTypesInitializer.InitializeAsync(context);
                 await RoleInitializer.InitializeAsync(rolesManager);
                 await UserPositionsInitializer.InitializeAsync(context);
                 await UserInitializer.InitializeAsync(userManager, context);
-                await RequestStatusesInitializer.InitializeAsync(context);
-                await RequestTypesInitializer.InitializeAsync(context);
-                await VacationTypesInitializer.InitializeAsync(context);
             }
             catch (Exception ex)
             {

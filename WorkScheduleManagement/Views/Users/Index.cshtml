@@ -5,15 +5,17 @@
 
 <table class="table">
     <tr>
-        <th>Email</th><th>Год</th><th>Должность</th><th>Количество отпускных</th><th></th>
+        <th>Email</th><th>ФИО</th><th>Количество отработанных дней в текущем году</th><th>Количество неиспользованных дней отпуска в текущем году</th><th>Количество неиспользованных дней отпуска за прошедшие года</th><th>Количество дней отгула в текущем году</th><th></th>
     </tr>
     @foreach (var user in Model)
     {
         <tr>
             <td>@user.Email</td>
             <td>@user.FullName</td>
-            <td>@user.Position</td>
-            <td>@user.UnusedVacationDaysCount</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>
                 <form asp-action="Delete" asp-route-id="@user.Id" method="post">
                     <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
@@ -25,5 +27,3 @@
         </tr>
     }
 </table>
-
-<a asp-action="Create">Добавить пользователя</a>

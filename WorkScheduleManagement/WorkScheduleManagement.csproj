@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
       <PackageReference Include="MediatR" Version="9.0.0" />
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />

@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Enums;
 
 namespace WorkScheduleManagement.Persistence.DbInitialization
 {
-    public class RequestStatusesInitializer
+    public static class RequestStatusesInitializer
     {
         public static async Task InitializeAsync(AppDbContext context)
         {

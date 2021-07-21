@@ -16,7 +16,7 @@ namespace WorkScheduleManagement.Application.Models.Users
 
         [Required]
         [Display(Name = "Должность")]
-        public string Position { get; set; }
+        public int Position { get; set; }
         
         public List<UserPosition> AllPositions { get; set; }
         

@@ -10,8 +10,8 @@ namespace WorkScheduleManagement.Persistence.DbInitialization
         {
             var roleNames = new List<string>
             {
-                "admin",
                 "director",
+                "admin",
                 "supervisor",
                 "employee"
             };

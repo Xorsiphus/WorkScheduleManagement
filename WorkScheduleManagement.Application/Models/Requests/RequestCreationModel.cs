@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using WorkScheduleManagement.Application.ModelValidators;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Enums;
 
@@ -17,26 +18,30 @@ namespace WorkScheduleManagement.Application.Models.Requests
         public RequestType Type { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [RequestDateValidation]
         public DateTime DateFrom { get; set; }
         
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [RequestDateValidation]
         public DateTime DateTo { get; set; }
-
-        public DateTime CreatedAt { get; set; }
-        
-        public DateTime SentAt { get; set; }
 
         public string Comment { get; set; }
 
-        public ICollection<UserIdNameModel> AllUsers { get; set; }
+        public IEnumerable<UserIdNameModel> AllReplacerUsers { get; set; }
 
         public string Replacer { get; set; }
+        
+        public IEnumerable<UserIdNameModel> AllApproverUsers { get; set; }
+
+        public string Approver { get; set; }
 
         [Required]
         public bool IsShifting { get; set; }
 
-        public int CalculatedNumberOfDays { get; set; }
-        
         public ICollection<VacationTypes> AllVacationTypes { get; set; }
 
         public VacationType VacationType { get; set; }

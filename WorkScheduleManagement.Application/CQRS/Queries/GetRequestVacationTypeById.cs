@@ -24,8 +24,8 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
 
             public async Task<VacationTypes> Handle(Query request, CancellationToken cancellationToken)
             {
-                var status = await _context.VacationTypes.Where(t => t.Id == request.Id).FirstOrDefaultAsync();
-                return status;
+                var vacationType = await _context.VacationTypes.Where(t => t.Id == request.Id).FirstOrDefaultAsync();
+                return vacationType;
             }
         }
     }

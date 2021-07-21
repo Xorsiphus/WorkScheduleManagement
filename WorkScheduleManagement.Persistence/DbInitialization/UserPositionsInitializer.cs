@@ -12,9 +12,9 @@ namespace WorkScheduleManagement.Persistence.DbInitialization
         {
             var positions = new List<UserPosition>
             {
-                new UserPosition { Name = "test", NumberOfWorkingHours = 20},
-                new UserPosition { Name = "test2", NumberOfWorkingHours = 30},
-                new UserPosition { Name = "test3", NumberOfWorkingHours = 40}
+                new UserPosition { Name = "position", NumberOfWorkingHours = 20},
+                new UserPosition { Name = "position2", NumberOfWorkingHours = 30},
+                new UserPosition { Name = "position3", NumberOfWorkingHours = 40}
             };
 
             foreach (var position in positions)

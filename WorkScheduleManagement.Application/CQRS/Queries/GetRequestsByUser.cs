@@ -23,8 +23,8 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
             
             public async Task<List<Request>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var positions = await _context.Requests.ToListAsync();
-                return positions;
+                var requests = await _context.Requests.ToListAsync();
+                return requests;
             }
         }
     }

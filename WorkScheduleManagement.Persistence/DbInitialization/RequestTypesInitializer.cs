@@ -6,7 +6,7 @@ using WorkScheduleManagement.Data.Enums;
 
 namespace WorkScheduleManagement.Persistence.DbInitialization
 {
-    public class RequestTypesInitializer
+    public static class RequestTypesInitializer
     {
         public static async Task InitializeAsync(AppDbContext context)
         {

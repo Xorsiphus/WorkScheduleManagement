@@ -4,12 +4,14 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WorkScheduleManagement.Application.Models.Users;
 using WorkScheduleManagement.Application.CQRS.Queries;
 using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Controllers.UserControllers
 {
+    [Authorize(Roles = "director,admin,supervisor")]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -22,48 +24,10 @@ namespace WorkScheduleManagement.Controllers.UserControllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
-        public IActionResult Index() => View(_userManager.Users.ToList());
-
-        [HttpGet]
-        public async Task<IActionResult> Create() => View(new CreateUserModel
-        {
-            AllPositions = await _mediator.Send(new GetUserPositions.Query())
-        });
-
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateUserModel model)
-        {
-            model.AllPositions = await _mediator.Send(new GetUserPositions.Query());
-            
-            if (ModelState.IsValid)
-            {
-                ApplicationUser user = new ApplicationUser
-                {
-                    Email = model.Email,
-                    UserName = model.Email,
-                    FullName = model.FullName,
-                    Position = await _mediator.Send(new GetPositionById.Query(model.Position)),
-                    PhoneNumber = model.PhoneNumber,
-                    UnusedVacationDaysCount = 20
-                };
-
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-            }
-
-            return View(model);
-        }
+        public IActionResult Index() => 
+            View(User.IsInRole("supervisor")
+            ? _userManager.GetUsersInRoleAsync("employee").Result.ToList()
+            : _userManager.Users.Include(u => u.Position).ToList());
 
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
@@ -91,7 +55,7 @@ namespace WorkScheduleManagement.Controllers.UserControllers
         public async Task<IActionResult> Edit(EditUserModel model)
         {
             model.AllPositions = await _mediator.Send(new GetUserPositions.Query());
-            
+
             if (ModelState.IsValid)
             {
                 ApplicationUser user = await _userManager.FindByIdAsync(model.Id);

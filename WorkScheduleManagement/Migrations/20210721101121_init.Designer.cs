@@ -10,7 +10,7 @@ using WorkScheduleManagement.Persistence;
 namespace WorkScheduleManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210718181751_init")]
+    [Migration("20210721101121_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
