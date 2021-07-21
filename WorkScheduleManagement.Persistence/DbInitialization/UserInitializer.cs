@@ -14,7 +14,7 @@ namespace WorkScheduleManagement.Persistence.DbInitialization
             {
                 Email = "test@test.t",
                 UserName = "test@test.t",
-                FullName = "1",
+                FullName = "admin",
                 Position = await context.UserPositions.Where(p => p.Name == "position").FirstOrDefaultAsync(),
                 PhoneNumber = "3",
                 UnusedVacationDaysCount = 20
@@ -25,7 +25,7 @@ namespace WorkScheduleManagement.Persistence.DbInitialization
             {
                 Email = "anotherOne@test.t",
                 UserName = "anotherOne@test.t",
-                FullName = "2",
+                FullName = "director",
                 Position = await context.UserPositions.Where(p => p.Name == "position2").FirstOrDefaultAsync(),
                 PhoneNumber = "4",
                 UnusedVacationDaysCount = 20

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WorkScheduleManagement.Data.Entities.Roles;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Entities.Requests;
 using WorkScheduleManagement.Data.Entities.Requests.RequestsDetails;
@@ -22,8 +21,9 @@ namespace WorkScheduleManagement.Persistence
         public DbSet<DayOffInsteadOverworkingRequest> DayOffInsteadOverworkingRequest { get; set; }
         public DbSet<HolidayRequest> HolidayRequest { get; set; }
         public DbSet<RemoteWorkRequest> RemoteWorkRequest { get; set; }
-
-        public DbSet<OverworkingDays> OverworkingDays { get; set; }
+        
+        public DbSet<DaysInsteadVacation> DaysInsteadVacation { get; set; }
+        public DbSet<HolidayList> HolidayList { get; set; }
         public DbSet<RemotePlans> RemotePlans { get; set; }
 
         public DbSet<RequestTypes> RequestTypes { get; set; }

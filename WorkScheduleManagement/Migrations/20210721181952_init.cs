@@ -226,10 +226,10 @@ namespace WorkScheduleManagement.Migrations
                     Comment = table.Column<string>(type: "text", nullable: true),
                     Discriminator = table.Column<string>(type: "text", nullable: false),
                     DayOffInsteadOverworkingRequest_ReplacerId = table.Column<string>(type: "text", nullable: true),
-                    DayOffInsteadVacationRequest_ReplacerId = table.Column<string>(type: "text", nullable: true),
-                    ReplacerId = table.Column<string>(type: "text", nullable: true),
                     DateFrom = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     DateTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DayOffInsteadVacationRequest_ReplacerId = table.Column<string>(type: "text", nullable: true),
+                    ReplacerId = table.Column<string>(type: "text", nullable: true),
                     VacationTypeId = table.Column<int>(type: "integer", nullable: true),
                     VacationRequest_ReplacerId = table.Column<string>(type: "text", nullable: true),
                     VacationRequest_DateFrom = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -296,20 +296,39 @@ namespace WorkScheduleManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OverworkingDays",
+                name: "DaysInsteadVacation",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DateFrom = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DateTo = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     RequestId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OverworkingDays", x => x.Id);
+                    table.PrimaryKey("PK_DaysInsteadVacation", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OverworkingDays_Requests_RequestId",
+                        name: "FK_DaysInsteadVacation_Requests_RequestId",
+                        column: x => x.RequestId,
+                        principalTable: "Requests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HolidayList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Date = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    RequestId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HolidayList", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HolidayList_Requests_RequestId",
                         column: x => x.RequestId,
                         principalTable: "Requests",
                         principalColumn: "Id",
@@ -380,8 +399,13 @@ namespace WorkScheduleManagement.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_OverworkingDays_RequestId",
-                table: "OverworkingDays",
+                name: "IX_DaysInsteadVacation_RequestId",
+                table: "DaysInsteadVacation",
+                column: "RequestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HolidayList_RequestId",
+                table: "HolidayList",
                 column: "RequestId");
 
             migrationBuilder.CreateIndex(
@@ -453,7 +477,10 @@ namespace WorkScheduleManagement.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "OverworkingDays");
+                name: "DaysInsteadVacation");
+
+            migrationBuilder.DropTable(
+                name: "HolidayList");
 
             migrationBuilder.DropTable(
                 name: "RemotePlans");

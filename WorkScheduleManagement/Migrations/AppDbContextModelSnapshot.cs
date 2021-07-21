@@ -221,17 +221,14 @@ namespace WorkScheduleManagement.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Request");
                 });
 
-            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.OverworkingDays", b =>
+            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.DaysInsteadVacation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("DateFrom")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("DateTo")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid?>("RequestId")
@@ -241,7 +238,27 @@ namespace WorkScheduleManagement.Migrations
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("OverworkingDays");
+                    b.ToTable("DaysInsteadVacation");
+                });
+
+            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.HolidayList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("RequestId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("HolidayList");
                 });
 
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.RemotePlans", b =>
@@ -377,6 +394,12 @@ namespace WorkScheduleManagement.Migrations
                 {
                     b.HasBaseType("WorkScheduleManagement.Data.Entities.Requests.Request");
 
+                    b.Property<DateTime>("DateFrom")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("DateTo")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("ReplacerId")
                         .HasColumnType("text")
                         .HasColumnName("DayOffInsteadOverworkingRequest_ReplacerId");
@@ -402,12 +425,6 @@ namespace WorkScheduleManagement.Migrations
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.HolidayRequest", b =>
                 {
                     b.HasBaseType("WorkScheduleManagement.Data.Entities.Requests.Request");
-
-                    b.Property<DateTime>("DateFrom")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("DateTo")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("ReplacerId")
                         .HasColumnType("text");
@@ -531,10 +548,19 @@ namespace WorkScheduleManagement.Migrations
                     b.Navigation("RequestTypes");
                 });
 
-            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.OverworkingDays", b =>
+            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.DaysInsteadVacation", b =>
                 {
-                    b.HasOne("WorkScheduleManagement.Data.Entities.Requests.DayOffInsteadOverworkingRequest", "Request")
-                        .WithMany("OverworkingDays")
+                    b.HasOne("WorkScheduleManagement.Data.Entities.Requests.DayOffInsteadVacationRequest", "Request")
+                        .WithMany("DaysInsteadVacation")
+                        .HasForeignKey("RequestId");
+
+                    b.Navigation("Request");
+                });
+
+            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.HolidayList", b =>
+                {
+                    b.HasOne("WorkScheduleManagement.Data.Entities.Requests.HolidayRequest", "Request")
+                        .WithMany("HolidayList")
                         .HasForeignKey("RequestId");
 
                     b.Navigation("Request");
@@ -600,9 +626,14 @@ namespace WorkScheduleManagement.Migrations
                     b.Navigation("VacationType");
                 });
 
-            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.DayOffInsteadOverworkingRequest", b =>
+            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.DayOffInsteadVacationRequest", b =>
                 {
-                    b.Navigation("OverworkingDays");
+                    b.Navigation("DaysInsteadVacation");
+                });
+
+            modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.HolidayRequest", b =>
+                {
+                    b.Navigation("HolidayList");
                 });
 
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RemoteWorkRequest", b =>

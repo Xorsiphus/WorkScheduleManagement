@@ -62,8 +62,6 @@
 {
     <script>
     
-    let daysCount = 0;
-    
     const addCustomDayInput = (customDayContainer) => {
         const dateInput = document.createElement('input');
         dateInput.setAttribute('class', 'text-box');
@@ -110,17 +108,13 @@
                 while (firstDayContainer.firstChild) {
                     firstDayContainer.removeChild(firstDayContainer.firstChild);
                 }
-                if (daysCount > 0)
-                    daysCount -= 1;
                 firstDayContainer.remove();
             } else {
                 firstDayContainer.children[1].textContent = "Выберите дату:  ";
                 addCustomDayInput(firstDayContainer);
                 addCustomDate(parentContainer);
-                daysCount += 1;
                 firstDayContainer.children[0].classList.toggle("before-down");
             }
-            console.log(daysCount);
         });
         
         parentContainer.appendChild(firstDayContainer);
@@ -197,7 +191,7 @@
                 requestFormDateFrom.disabled = false;
                 requestFormDateTo.disabled = false;
                 requestFormIsShifting.disabled = true;
-                drawCustomDays();
+                hideCustomDays();
                 break;
             case "OnRemoteWork":
                 requestFormComment.disabled = false;

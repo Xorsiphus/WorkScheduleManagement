@@ -9,6 +9,7 @@ using WorkScheduleManagement.Application.CQRS.Commands;
 using WorkScheduleManagement.Application.CQRS.Queries;
 using WorkScheduleManagement.Application.Models.Requests;
 using WorkScheduleManagement.Data.Entities.Requests;
+using WorkScheduleManagement.Data.Entities.Requests.RequestsDetails;
 using WorkScheduleManagement.Data.Enums;
 
 namespace WorkScheduleManagement.Controllers
@@ -69,9 +70,9 @@ namespace WorkScheduleManagement.Controllers
                             RequestTypes = await _mediator.Send(new GetRequestTypeById.Query(model.Type)),
                             Comment = model.Comment,
                             RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
-                            DateFrom = model.DateFrom,
-                            DateTo = model.DateTo,
                             
+                            HolidayList = model.CustomDays.ToList().ConvertAll(d => new HolidayList { Date = d }),
+                            Replacer = await _mediator.Send(new GetUserById.Query(model.Replacer)),
                         };
                         break;
                     case RequestType.OnRemoteWork:
@@ -83,6 +84,7 @@ namespace WorkScheduleManagement.Controllers
                             Comment = model.Comment,
                             RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
                             
+                            RemotePlans = model.CustomDays.Zip(model.RemotePlans, ((time, plan) => new RemotePlans { Date = time, WorkingPlan = plan})).ToList()
                         };
                         break;
                     case RequestType.OnDayOffInsteadOverworking:
@@ -94,6 +96,9 @@ namespace WorkScheduleManagement.Controllers
                             Comment = model.Comment,
                             RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
                             
+                            DateFrom = model.DateFrom,
+                            DateTo = model.DateTo,
+                            Replacer = await _mediator.Send(new GetUserById.Query(model.Replacer)),
                         };
                         break;
                     case RequestType.OnDayOffInsteadVacation:
@@ -105,6 +110,8 @@ namespace WorkScheduleManagement.Controllers
                             Comment = model.Comment,
                             RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
 
+                            Replacer = await _mediator.Send(new GetUserById.Query(model.Replacer)),
+                            DaysInsteadVacation = model.CustomDays.ToList().ConvertAll(d => new DaysInsteadVacation { Date = d }),
                         };
                         break;
                     case RequestType.OnVacation:
