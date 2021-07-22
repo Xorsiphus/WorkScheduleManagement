@@ -22,7 +22,8 @@ namespace WorkScheduleManagement.Persistence
         public DbSet<HolidayRequest> HolidayRequest { get; set; }
         public DbSet<RemoteWorkRequest> RemoteWorkRequest { get; set; }
         
-        public DbSet<DaysInsteadVacation> DaysInsteadVacation { get; set; }
+        public DbSet<DayOffInsteadVacation> DayOffInsteadVacations { get; set; }
+        public DbSet<DayOffInsteadOverworking> DayOffInsteadOverworkings { get; set; }
         public DbSet<HolidayList> HolidayList { get; set; }
         public DbSet<RemotePlans> RemotePlans { get; set; }
 

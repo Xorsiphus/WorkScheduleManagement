@@ -15,7 +15,7 @@ namespace WorkScheduleManagement.Persistence.DbInitialization
                 new RequestStatuses {Id = RequestStatus.Agreed, Name = "Согласована"},
                 new RequestStatuses {Id = RequestStatus.Approved, Name = "Утверждена"},
                 new RequestStatuses {Id = RequestStatus.Canceled, Name = "Отозвана"},
-                new RequestStatuses {Id = RequestStatus.New, Name = "Новая"},
+                new RequestStatuses {Id = RequestStatus.New, Name = "Создана"},
                 new RequestStatuses {Id = RequestStatus.Rejected, Name = "Отменена"},
                 new RequestStatuses {Id = RequestStatus.NotAgreed, Name = "Не согласована"},
                 new RequestStatuses {Id = RequestStatus.NotApproved, Name = "Не утверждена"},

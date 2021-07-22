@@ -8,6 +8,6 @@ namespace WorkScheduleManagement.Data.Entities.Requests
     {
         public ApplicationUser Replacer { get; set; }
         
-        public IList<DaysInsteadVacation> DaysInsteadVacation { get; set; }
+        public IList<DayOffInsteadVacation> DaysOffInsteadVacation { get; set; }
     }
 }

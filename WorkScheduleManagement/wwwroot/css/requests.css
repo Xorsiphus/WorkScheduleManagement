@@ -1,8 +1,15 @@
 ﻿.CustomDayContainer {
-    border: 1px solid black;
+    border: 1px solid lightgrey;
     border-radius: 10px;
     padding: 20px;
     margin-top: 10px;
+}
+
+.DateContainer {
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    padding: 20px;
+    /*margin-top: 10px;*/
 }
 
 

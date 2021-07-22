@@ -2,7 +2,7 @@
 
 namespace WorkScheduleManagement.Data.Entities.Requests.RequestsDetails
 {
-    public class DaysInsteadVacation
+    public class DayOffInsteadVacation
     {
         public int Id { get; set; }
 

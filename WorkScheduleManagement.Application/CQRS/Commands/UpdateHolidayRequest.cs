@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using WorkScheduleManagement.Data.Entities.Requests;
@@ -6,9 +7,9 @@ using WorkScheduleManagement.Persistence;
 
 namespace WorkScheduleManagement.Application.CQRS.Commands
 {
-    public static class CreateRequest
+    public static class UpdateHolidayRequest
     {
-        public record Command(Request Request) : IRequest<bool>;
+        public record Command(HolidayRequest Request) : IRequest<bool>;
 
         public class Handler : IRequestHandler<Command, bool>
         {
@@ -21,7 +22,13 @@ namespace WorkScheduleManagement.Application.CQRS.Commands
 
             public async Task<bool> Handle(Command request, CancellationToken cancellationToken)
             {
-                await _context.Requests.AddAsync(request.Request);
+                var oldDates = _context
+                    .HolidayList
+                    .Where(d => d.Request.Id == request.Request.Id)
+                    .ToList();
+                _context.HolidayList.RemoveRange(oldDates);
+
+                _context.HolidayRequest.Update(request.Request);
                 await _context.SaveChangesAsync();
                 return true;
             }

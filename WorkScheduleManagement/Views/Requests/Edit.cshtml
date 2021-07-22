@@ -1,32 +1,32 @@
 ﻿@model WorkScheduleManagement.Application.Models.Requests.RequestCreationModel
 
 @{
-    ViewBag.Title = "Создание заявки";
+    ViewBag.Title = "Редактирование заявки";
 }
 
 <link rel="stylesheet" href="~/css/requests.css"/>
 
-<form asp-action="Create" asp-controller="Requests">
+<form asp-action="Edit" asp-controller="Requests">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group" id="FormType">
         <label asp-for="Type" class="control-label">Тип заявки:</label>
-        @Html.DropDownList("Type", new SelectList(Model.AllTypes, "Id", "Name"), new {@class = "form-control"})
+        @Html.DropDownList("Type", new SelectList(Model.AllTypes, "Id", "Name", Model.Type), new {@class = "form-control", @readonly = "readonly"})
     </div>
     <hr/>
 
     <div class="form-group" id="FormReplacer">
         <label asp-for="AllReplacerUsers" class="control-label">Замещающий сотрудник:</label>
-        @Html.DropDownList("Replacer", new SelectList(Model.AllReplacerUsers, "Id", "FullName", ""), new {@class = "form-control"})
+        @Html.DropDownList("Replacer", new SelectList(Model.AllReplacerUsers, "Id", "FullName", Model.Replacer), new {@class = "form-control"})
     </div>
 
     <div class="form-group" id="FormApprover">
         <label asp-for="AllApproverUsers" class="control-label">Согласующий сотрудник:</label>
-        @Html.DropDownList("Approver", new SelectList(Model.AllApproverUsers, "Id", "FullName", ""), new {@class = "form-control"})
+        @Html.DropDownList("Approver", new SelectList(Model.AllApproverUsers, "Id", "FullName", Model.Approver), new {@class = "form-control"})
     </div>
 
     <div class="form-group" id="FormVacationType">
         <label asp-for="VacationType" class="control-label">Тип отпуска:</label>
-        @Html.DropDownList("VacationType", new SelectList(Model.AllVacationTypes, "Id", "Name"), new {@class = "form-control"})
+        @Html.DropDownList("VacationType", new SelectList(Model.AllVacationTypes, "Id", "Name", Model.VacationType), new {@class = "form-control"})
     </div>
 
     <div class="form-group" id="FormComment">
@@ -35,7 +35,7 @@
     </div>
 
     <div class="DateContainer">
-        <label class="control-label" id="DatesLabel">Даты отпуска: </label>
+        <label class="control-label">Даты отпуска/отработки: </label>
         <div class="form-group" id="FormDateFrom">
             <label asp-for="DateFrom" class="control-label">Дата начала: </label>
             @Html.EditorFor(model => model.DateFrom)
@@ -53,26 +53,29 @@
         <label asp-for="IsShifting" class="control-label">Возможность передвинуть: </label>
         <input type="checkbox" asp-for="IsShifting" name="IsShifting"/>
     </div>
-    
+
     <div class="form-group" id="FormCustomDate">
         @{
-            if (Model.CustomDays != null)
+            if (Model.RemotePlans != null)
             {
-                if (Model.RemotePlans != null)
+                var outData = Model.CustomDays.Zip(Model.RemotePlans, (time, s) => new {Date = time, Plan = s}).ToList();
+
+                <span class="control-label">Одиночные дни:</span>
+
+                foreach (var day in outData)
                 {
-                    var outData = Model.CustomDays.Zip(Model.RemotePlans, (time, s) => new {Date = time, Plan = s}).ToList();
-                    foreach (var day in outData)
-                    {
-                        <div class="CustomDayContainer">
-                            <span class="before before-down">➕</span>
-                            <span>Выберите дату: </span>
-                            <input class="single-line" data-val="true" type="date" name="CustomDays" value="@day.Date.ToString("yyyy-MM-dd")">
-                            <span> План удалённой работы: </span>
-                            <input name="RemotePlans" style="width: 50%;" value="@day.Plan">
-                        </div>
-                    }
+                    <div class="CustomDayContainer">
+                        <span class="before before-down">➕</span>
+                        <span>Выберите дату: </span>
+                        <input class="single-line" data-val="true" type="date" name="CustomDays" value="@day.Date.ToString("yyyy-MM-dd")">
+                        <span> План удалённой работы: </span>
+                        <input name="RemotePlans" style="width: 50%;" value="@day.Plan">
+                    </div>
                 }
-                else
+            }
+            else
+            {
+                if (Model.CustomDays != null)
                 {
                     var outData = Model.CustomDays;
                     foreach (var day in outData)
@@ -89,7 +92,7 @@
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Создать" class="btn btn-outline-success"/>
+        <input type="submit" value="Сохранить" class="btn btn-outline-success"/>
     </div>
 </form>
 

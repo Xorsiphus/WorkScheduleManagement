@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WorkScheduleManagement.Application.Models.Requests.RequestsDetails;
 using WorkScheduleManagement.Application.ModelValidators;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Enums;
@@ -17,7 +16,7 @@ namespace WorkScheduleManagement.Application.Models.Requests
         public ICollection<RequestTypes> AllTypes { get; set; }
         
         public RequestType Type { get; set; }
-        
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [RequestDateValidation]
