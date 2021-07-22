@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using WorkScheduleManagement.Application.Models.Requests;
+using WorkScheduleManagement.Application.Models.Users;
 using WorkScheduleManagement.Data.Entities.Users;
 
 namespace WorkScheduleManagement.Application.CQRS.Queries

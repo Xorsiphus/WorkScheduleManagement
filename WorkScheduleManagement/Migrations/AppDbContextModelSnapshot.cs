@@ -238,7 +238,7 @@ namespace WorkScheduleManagement.Migrations
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("DayOffInsteadOverworkings");
+                    b.ToTable("DayOffInsteadOverworking");
                 });
 
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.DayOffInsteadVacation", b =>
@@ -258,7 +258,7 @@ namespace WorkScheduleManagement.Migrations
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("DayOffInsteadVacations");
+                    b.ToTable("DayOffInsteadVacation");
                 });
 
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.HolidayList", b =>

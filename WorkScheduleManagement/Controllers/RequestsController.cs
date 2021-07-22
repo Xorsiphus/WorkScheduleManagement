@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using WorkScheduleManagement.Application.CQRS.Commands;
 using WorkScheduleManagement.Application.CQRS.Queries;
 using WorkScheduleManagement.Application.Models.Requests;
+using WorkScheduleManagement.Application.Models.Users;
+using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Entities.Requests;
 using WorkScheduleManagement.Data.Entities.Requests.RequestsDetails;
 using WorkScheduleManagement.Data.Enums;
@@ -30,7 +32,7 @@ namespace WorkScheduleManagement.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Create() => View(new RequestCreationModel
+        public async Task<IActionResult> Create() => View(new CreationModel
         {
             AllTypes = await _mediator.Send(new GetRequestTypes.Query()),
             AllVacationTypes = await _mediator.Send(new GetRequestVacationTypes.Query()),
@@ -45,16 +47,8 @@ namespace WorkScheduleManagement.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(RequestCreationModel model)
+        public async Task<IActionResult> Create(CreationModel model)
         {
-            model.AllTypes = await _mediator.Send(new GetRequestTypes.Query());
-            model.AllVacationTypes = await _mediator.Send(new GetRequestVacationTypes.Query());
-            model.AllReplacerUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
-                .Union(await _mediator.Send(new GetUsersWithRole.Query("employee")))
-                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
-            model.AllApproverUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
-                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
-
             if (ModelState.IsValid)
             {
                 Request newRequest;
@@ -87,7 +81,7 @@ namespace WorkScheduleManagement.Controllers
                             RequestStatus = await _mediator.Send(new GetRequestStatusById.Query(RequestStatus.New)),
 
                             RemotePlans = model.CustomDays.Zip(model.RemotePlans,
-                                ((time, plan) => new RemotePlans {Date = time, WorkingPlan = plan})).ToList()
+                                (time, plan) => new RemotePlans {Date = time, WorkingPlan = plan}).ToList()
                         };
                         break;
                     case RequestType.OnDayOffInsteadOverworking:
@@ -158,6 +152,14 @@ namespace WorkScheduleManagement.Controllers
                 // }
             }
 
+            model.AllTypes = await _mediator.Send(new GetRequestTypes.Query());
+            model.AllVacationTypes = await _mediator.Send(new GetRequestVacationTypes.Query());
+            model.AllReplacerUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
+                .Union(await _mediator.Send(new GetUsersWithRole.Query("employee")))
+                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
+            model.AllApproverUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
+                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
+
             return View(model);
         }
 
@@ -169,13 +171,13 @@ namespace WorkScheduleManagement.Controllers
             if (request == null)
                 return NotFound();
 
-            var requestModel = new RequestCreationModel
+            var requestModel = new CreationModel
             {
                 Id = request.Id.ToString(),
                 Type = request.RequestTypes.Id,
                 Comment = request.Comment,
                 Approver = request.Approver?.Id,
-
+                Status = request.RequestStatus.Id,
 
                 AllTypes = await _mediator.Send(new GetRequestTypes.Query()),
                 AllVacationTypes = await _mediator.Send(new GetRequestVacationTypes.Query()),
@@ -231,20 +233,12 @@ namespace WorkScheduleManagement.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(RequestCreationModel model)
+        public async Task<IActionResult> Edit(CreationModel model)
         {
-            model.AllTypes = await _mediator.Send(new GetRequestTypes.Query());
-            model.AllVacationTypes = await _mediator.Send(new GetRequestVacationTypes.Query());
-            model.AllReplacerUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
-                .Union(await _mediator.Send(new GetUsersWithRole.Query("employee")))
-                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
-            model.AllApproverUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
-                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
-
             if (ModelState.IsValid)
             {
                 bool result;
-                
+
                 switch (model.Type)
                 {
                     case RequestType.OnHoliday:
@@ -283,7 +277,8 @@ namespace WorkScheduleManagement.Controllers
                                 .ConvertAll(d => new DayOffInsteadOverworking {Date = d}),
                             Replacer = await _mediator.Send(new GetUserById.Query(model.Replacer)),
                         };
-                        result = await _mediator.Send(new UpdateDayOffInsteadOverworkingRequest.Command(dayOffInsteadOverworkingRequest));
+                        result = await _mediator.Send(
+                            new UpdateDayOffInsteadOverworkingRequest.Command(dayOffInsteadOverworkingRequest));
                         break;
                     case RequestType.OnDayOffInsteadVacation:
                         var dayOffInsteadVacationRequest = new DayOffInsteadVacationRequest
@@ -295,7 +290,8 @@ namespace WorkScheduleManagement.Controllers
                             DaysOffInsteadVacation = model.CustomDays.ToList()
                                 .ConvertAll(d => new DayOffInsteadVacation {Date = d}),
                         };
-                        result = await _mediator.Send(new UpdateDayOffInsteadVacationRequest.Command(dayOffInsteadVacationRequest));
+                        result = await _mediator.Send(
+                            new UpdateDayOffInsteadVacationRequest.Command(dayOffInsteadVacationRequest));
                         break;
                     case RequestType.OnVacation:
                         var vacationRequest = new VacationRequest
@@ -328,7 +324,25 @@ namespace WorkScheduleManagement.Controllers
                 // }
             }
 
+            model.AllTypes = await _mediator.Send(new GetRequestTypes.Query());
+            model.AllVacationTypes = await _mediator.Send(new GetRequestVacationTypes.Query());
+            model.AllReplacerUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
+                .Union(await _mediator.Send(new GetUsersWithRole.Query("employee")))
+                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
+            model.AllApproverUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
+                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
+
             return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UpdateStatus(UpdateStatusModel model)
+        {
+            await _mediator.Send(new UpdateRequestStatus.Command(new VacationRequest
+                    {Id = new Guid(model.Id), RequestStatus = new RequestStatuses {Id = model.NewStatus}}));
+
+            return RedirectToAction("Index");
         }
     }
 }

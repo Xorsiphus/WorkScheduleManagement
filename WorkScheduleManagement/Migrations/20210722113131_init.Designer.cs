@@ -10,7 +10,7 @@ using WorkScheduleManagement.Persistence;
 namespace WorkScheduleManagement.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210722083400_init")]
+    [Migration("20210722113131_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,7 +240,7 @@ namespace WorkScheduleManagement.Migrations
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("DayOffInsteadOverworkings");
+                    b.ToTable("DayOffInsteadOverworking");
                 });
 
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.DayOffInsteadVacation", b =>
@@ -260,7 +260,7 @@ namespace WorkScheduleManagement.Migrations
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("DayOffInsteadVacations");
+                    b.ToTable("DayOffInsteadVacation");
                 });
 
             modelBuilder.Entity("WorkScheduleManagement.Data.Entities.Requests.RequestsDetails.HolidayList", b =>

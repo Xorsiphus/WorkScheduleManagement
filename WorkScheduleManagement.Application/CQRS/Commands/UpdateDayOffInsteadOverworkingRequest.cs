@@ -23,10 +23,10 @@ namespace WorkScheduleManagement.Application.CQRS.Commands
             public async Task<bool> Handle(Command request, CancellationToken cancellationToken)
             {
                 var oldDates = _context
-                    .DayOffInsteadOverworkings
+                    .DayOffInsteadOverworking
                     .Where(d => d.Request.Id == request.Request.Id)
                     .ToList();
-                _context.DayOffInsteadOverworkings.RemoveRange(oldDates);
+                _context.DayOffInsteadOverworking.RemoveRange(oldDates);
 
                 _context.DayOffInsteadOverworkingRequest.Update(request.Request);
                 await _context.SaveChangesAsync();

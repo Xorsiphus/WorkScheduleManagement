@@ -1,15 +1,15 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using WorkScheduleManagement.Data.Entities.Requests;
 using WorkScheduleManagement.Persistence;
 
 namespace WorkScheduleManagement.Application.CQRS.Commands
 {
-    public static class UpdateDayOffInsteadVacationRequest
+    public static class UpdateRequestStatus
     {
-        public record Command(DayOffInsteadVacationRequest Request) : IRequest<bool>;
+        public record Command(Request Request) : IRequest<bool>;
 
         public class Handler : IRequestHandler<Command, bool>
         {
@@ -22,13 +22,8 @@ namespace WorkScheduleManagement.Application.CQRS.Commands
 
             public async Task<bool> Handle(Command request, CancellationToken cancellationToken)
             {
-                var oldDates = _context
-                    .DayOffInsteadVacation
-                    .Where(d => d.Request.Id == request.Request.Id)
-                    .ToList();
-                _context.DayOffInsteadVacation.RemoveRange(oldDates);
-                
-                _context.DayOffInsteadVacationRequest.Update(request.Request);
+                var originRequest = await _context.Requests.Include(r => r.RequestStatus).FirstOrDefaultAsync(r => request.Request.Id == r.Id);
+                originRequest.RequestStatus = await _context.RequestStatuses.FirstOrDefaultAsync(s => s.Id == request.Request.RequestStatus.Id);
                 await _context.SaveChangesAsync();
                 return true;
             }

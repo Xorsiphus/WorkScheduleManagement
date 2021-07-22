@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using WorkScheduleManagement.Application.Models.Requests;
+using WorkScheduleManagement.Application.Models.Users;
 using WorkScheduleManagement.Persistence;
 
 namespace WorkScheduleManagement.Application.CQRS.Queries

@@ -29,6 +29,7 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                     .Where(r => r.Id.ToString() == request.Id)
                     .Include(r => r.Approver)
                     .Include(r => r.RequestTypes)
+                    .Include(r => r.RequestStatus)
                     .FirstOrDefaultAsync();
 
                 switch (receivedRequest.RequestTypes.Id)
@@ -44,7 +45,9 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                         {
                             Id = holidayRequest.Id,
                             RequestTypes = receivedRequest.RequestTypes,
+                            RequestStatus = receivedRequest.RequestStatus,
                             Approver = receivedRequest.Approver,
+                            
                             Replacer = holidayRequest.Replacer,
                             HolidayList = holidayRequest.HolidayList,
                             Comment = holidayRequest.Comment
@@ -60,7 +63,9 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                         {
                             Id = vacationRequest.Id,
                             RequestTypes = receivedRequest.RequestTypes,
+                            RequestStatus = receivedRequest.RequestStatus,
                             Approver = receivedRequest.Approver,
+                            
                             Replacer = vacationRequest.Replacer,
                             VacationType = vacationRequest.VacationType,
                             Comment = vacationRequest.Comment,
@@ -78,7 +83,9 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                         {
                             Id = remoteWorkRequest.Id,
                             RequestTypes = receivedRequest.RequestTypes,
+                            RequestStatus = receivedRequest.RequestStatus,
                             Approver = receivedRequest.Approver,
+                            
                             RemotePlans = remoteWorkRequest.RemotePlans,
                             Comment = remoteWorkRequest.Comment,
                         };
@@ -93,7 +100,9 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                         {
                             Id = dayOffInsteadOverworkingRequest.Id,
                             RequestTypes = receivedRequest.RequestTypes,
+                            RequestStatus = receivedRequest.RequestStatus,
                             Approver = receivedRequest.Approver,
+                            
                             Replacer = dayOffInsteadOverworkingRequest.Replacer,
                             Comment = dayOffInsteadOverworkingRequest.Comment,
                             DateFrom = dayOffInsteadOverworkingRequest.DateFrom,
@@ -111,7 +120,9 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                         {
                             Id = dayOffInsteadVacationRequest.Id,
                             RequestTypes = receivedRequest.RequestTypes,
+                            RequestStatus = receivedRequest.RequestStatus,
                             Approver = receivedRequest.Approver,
+                            
                             Replacer = dayOffInsteadVacationRequest.Replacer,
                             Comment = dayOffInsteadVacationRequest.Comment,
                             DaysOffInsteadVacation = dayOffInsteadVacationRequest.DaysOffInsteadVacation

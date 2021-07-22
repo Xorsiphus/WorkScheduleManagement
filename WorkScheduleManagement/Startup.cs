@@ -29,7 +29,6 @@ namespace WorkScheduleManagement
             {
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), 
                     b => b.MigrationsAssembly("WorkScheduleManagement"));
-                options.EnableSensitiveDataLogging();
             });
 
             services.AddIdentity<ApplicationUser, IdentityRole>(opts=> {

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using WorkScheduleManagement.Application.Models.Users;
 using WorkScheduleManagement.Application.ModelValidators;
 using WorkScheduleManagement.Data.Entities;
 using WorkScheduleManagement.Data.Enums;
 
 namespace WorkScheduleManagement.Application.Models.Requests
 {
-    public class RequestCreationModel
+    public class CreationModel
     {
         public string Id { get; set; }
 
@@ -16,6 +17,8 @@ namespace WorkScheduleManagement.Application.Models.Requests
         public ICollection<RequestTypes> AllTypes { get; set; }
         
         public RequestType Type { get; set; }
+
+        public RequestStatus Status { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

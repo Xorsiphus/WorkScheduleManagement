@@ -296,7 +296,7 @@ namespace WorkScheduleManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DayOffInsteadOverworkings",
+                name: "DayOffInsteadOverworking",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -306,9 +306,9 @@ namespace WorkScheduleManagement.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DayOffInsteadOverworkings", x => x.Id);
+                    table.PrimaryKey("PK_DayOffInsteadOverworking", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DayOffInsteadOverworkings_Requests_RequestId",
+                        name: "FK_DayOffInsteadOverworking_Requests_RequestId",
                         column: x => x.RequestId,
                         principalTable: "Requests",
                         principalColumn: "Id",
@@ -316,7 +316,7 @@ namespace WorkScheduleManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DayOffInsteadVacations",
+                name: "DayOffInsteadVacation",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -326,9 +326,9 @@ namespace WorkScheduleManagement.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DayOffInsteadVacations", x => x.Id);
+                    table.PrimaryKey("PK_DayOffInsteadVacation", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DayOffInsteadVacations_Requests_RequestId",
+                        name: "FK_DayOffInsteadVacation_Requests_RequestId",
                         column: x => x.RequestId,
                         principalTable: "Requests",
                         principalColumn: "Id",
@@ -419,13 +419,13 @@ namespace WorkScheduleManagement.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_DayOffInsteadOverworkings_RequestId",
-                table: "DayOffInsteadOverworkings",
+                name: "IX_DayOffInsteadOverworking_RequestId",
+                table: "DayOffInsteadOverworking",
                 column: "RequestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DayOffInsteadVacations_RequestId",
-                table: "DayOffInsteadVacations",
+                name: "IX_DayOffInsteadVacation_RequestId",
+                table: "DayOffInsteadVacation",
                 column: "RequestId");
 
             migrationBuilder.CreateIndex(
@@ -502,10 +502,10 @@ namespace WorkScheduleManagement.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DayOffInsteadOverworkings");
+                name: "DayOffInsteadOverworking");
 
             migrationBuilder.DropTable(
-                name: "DayOffInsteadVacations");
+                name: "DayOffInsteadVacation");
 
             migrationBuilder.DropTable(
                 name: "HolidayList");

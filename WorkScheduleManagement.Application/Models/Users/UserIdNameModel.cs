@@ -1,4 +1,4 @@
-﻿namespace WorkScheduleManagement.Application.Models.Requests
+﻿namespace WorkScheduleManagement.Application.Models.Users
 {
     public class UserIdNameModel
     {

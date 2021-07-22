@@ -1,4 +1,5 @@
-﻿@model WorkScheduleManagement.Application.Models.Requests.RequestCreationModel
+﻿@using WorkScheduleManagement.Data.Enums
+@model WorkScheduleManagement.Application.Models.Requests.CreationModel
 
 @{
     ViewBag.Title = "Редактирование заявки";
@@ -6,14 +7,15 @@
 
 <link rel="stylesheet" href="~/css/requests.css"/>
 
-<form asp-action="Edit" asp-controller="Requests">
+<form id="EditForm" asp-action="Edit" asp-controller="Requests">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input id="Status" name="Status" value="@Model.Status" hidden/>
+    <input id="Type" name="Type" value="@Model.Type" hidden/>
     <div class="form-group" id="FormType">
         <label asp-for="Type" class="control-label">Тип заявки:</label>
-        @Html.DropDownList("Type", new SelectList(Model.AllTypes, "Id", "Name", Model.Type), new {@class = "form-control", @readonly = "readonly"})
+        @Html.DropDownList("Type", new SelectList(Model.AllTypes, "Id", "Name", Model.Type), new {@class = "form-control", @disabled = "disabled"})
     </div>
     <hr/>
-
     <div class="form-group" id="FormReplacer">
         <label asp-for="AllReplacerUsers" class="control-label">Замещающий сотрудник:</label>
         @Html.DropDownList("Replacer", new SelectList(Model.AllReplacerUsers, "Id", "FullName", Model.Replacer), new {@class = "form-control"})
@@ -35,7 +37,7 @@
     </div>
 
     <div class="DateContainer">
-        <label class="control-label">Даты отпуска/отработки: </label>
+        <label id="DatesLabel" class="control-label">Даты отпуска/отработки: </label>
         <div class="form-group" id="FormDateFrom">
             <label asp-for="DateFrom" class="control-label">Дата начала: </label>
             @Html.EditorFor(model => model.DateFrom)
@@ -92,9 +94,88 @@
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Сохранить" class="btn btn-outline-success"/>
+        <input id="SaveButton" type="submit" value="Сохранить" class="btn btn-outline-success"/>
     </div>
 </form>
+@{
+    if (Model.Status is RequestStatus.New or RequestStatus.Canceled)
+    {
+        <form asp-action="UpdateStatus" asp-controller="Requests">
+            <div class="form-group">
+                <input type="text" name="Id" value="@Model.Id" hidden/>
+                <input type="text" name="NewStatus" value="@RequestStatus.SentForApproval" hidden/>
+                <input type="submit" value="Отправить" class="btn btn-outline-secondary"/>
+                <span asp-validation-for="Status"></span>
+            </div>
+        </form>
+    }
+    if (Model.Status is RequestStatus.SentForApproval)
+    {
+        <form asp-action="UpdateStatus" asp-controller="Requests">
+            <div class="form-group">
+                <input type="text" name="Id" value="@Model.Id" hidden/>
+                <input type="text" name="NewStatus" value="@RequestStatus.Canceled" hidden/>
+                <input type="submit" value="Отозвать" class="btn btn-outline-secondary"/>
+                <span asp-validation-for="Status"></span>
+            </div>
+        </form>
+    }
+
+    if (Model.Status is RequestStatus.SentForApproval && (User.IsInRole("director") || User.IsInRole("supervisor")))
+    {
+        <form asp-action="UpdateStatus" asp-controller="Requests">
+            <div class="form-group">
+                <input type="text" name="Id" value="@Model.Id" hidden/>
+                <input type="text" name="NewStatus" value="@RequestStatus.Agreed" hidden/>
+                <input type="submit" value="Согласовать" class="btn btn-outline-secondary"/>
+                <span asp-validation-for="Status"></span>
+            </div>
+
+        </form>
+
+        <form asp-action="UpdateStatus" asp-controller="Requests">
+            <div class="form-group">
+                <input type="text" name="Id" value="@Model.Id" hidden/>
+                <input type="text" name="NewStatus" value="@RequestStatus.NotAgreed" hidden/>
+                <input type="submit" value="Не согласовать" class="btn btn-outline-secondary"/>
+                <span asp-validation-for="Status"></span>
+            </div>
+        </form>
+    }
+
+    if (Model.Status is RequestStatus.Agreed && (User.IsInRole("director") || User.IsInRole("supervisor")))
+    {
+        <form asp-action="UpdateStatus" asp-controller="Requests">
+            <div class="form-group">
+                <input type="text" name="Id" value="@Model.Id" hidden/>
+                <input type="text" name="NewStatus" value="@RequestStatus.Approved" hidden/>
+                <input type="submit" value="Утвердить" class="btn btn-outline-secondary"/>
+                <span asp-validation-for="Status"></span>
+            </div>
+        </form>
+        <form asp-action="UpdateStatus" asp-controller="Requests">
+            <div class="form-group">
+                <input type="text" name="Id" value="@Model.Id" hidden/>
+                <input type="text" name="NewStatus" value="@RequestStatus.NotApproved" hidden/>
+                <input type="submit" value="Не утвердить" class="btn btn-outline-secondary"/>
+                <span asp-validation-for="Status"></span>
+            </div>
+        </form>
+    }
+
+    if (Model.Status is not RequestStatus.Rejected)
+    {
+        <form asp-action="UpdateStatus" asp-controller="Requests">
+            <div class="form-group">
+                <input type="text" name="Id" value="@Model.Id" hidden/>
+                <input type="text" name="NewStatus" value="@RequestStatus.Rejected" hidden/>
+                <input type="submit" value="Отменить" class="btn btn-outline-danger"/>
+                <span asp-validation-for="Status"></span>
+            </div>
+        </form>
+    }
+
+}
 
 @section scripts
 {
