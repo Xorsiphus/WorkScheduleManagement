@@ -8,7 +8,7 @@ using WorkScheduleManagement.Data.Enums;
 
 namespace WorkScheduleManagement.Application.Models.Requests
 {
-    public class CreationModel
+    public class RequestCreationModel
     {
         public string Id { get; set; }
 

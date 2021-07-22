@@ -2,7 +2,7 @@
 
 namespace WorkScheduleManagement.Application.Models.Requests
 {
-    public class TableModel
+    public class ReqeustTableModel
     {
         public string Id { get; set; }
 

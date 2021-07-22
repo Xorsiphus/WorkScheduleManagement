@@ -24,10 +24,33 @@ namespace WorkScheduleManagement.Controllers.UserControllers
         }
 
         [HttpGet]
-        public IActionResult Index() => 
-            View(User.IsInRole("supervisor")
-            ? _userManager.GetUsersInRoleAsync("employee").Result.ToList()
-            : _userManager.Users.Include(u => u.Position).ToList());
+        public async Task<IActionResult> Index()
+        {
+            var usersList = User.IsInRole("supervisor")
+                ? _userManager.GetUsersInRoleAsync("employee").Result.ToList()
+                : _userManager.Users.Include(u => u.Position).ToList();
+
+            var userModels = usersList.ConvertAll(u => new UserTableModel
+            {
+                Id = u.Id,
+                Username = u.UserName,
+                FullName = u.FullName,
+                CountOfUnusedVacationDays = u.UnusedVacationDaysCount
+            });
+
+            foreach (var userModel in userModels)
+            {
+                userModel.CountOfHolidays =
+                    await _mediator.Send(new GetUserCountOfHolidays.Query(userModel.Id));
+                userModel.CountOfUnusedVacationDays -=
+                    await _mediator.Send(new GetUserCountOfUsedVacationDays.Query(userModel.Id));
+                userModel.CountOfBusinessDays =
+                    await _mediator.Send(new GetUserCountOfBusinessDays.Query(userModel.Id));
+            }
+
+            return View(userModels);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Edit(string id)

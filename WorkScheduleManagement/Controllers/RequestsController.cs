@@ -32,7 +32,7 @@ namespace WorkScheduleManagement.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Create() => View(new CreationModel
+        public async Task<IActionResult> Create() => View(new RequestCreationModel
         {
             AllTypes = await _mediator.Send(new GetRequestTypes.Query()),
             AllVacationTypes = await _mediator.Send(new GetRequestVacationTypes.Query()),
@@ -47,7 +47,7 @@ namespace WorkScheduleManagement.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(CreationModel model)
+        public async Task<IActionResult> Create(RequestCreationModel model)
         {
             if (ModelState.IsValid)
             {
@@ -171,7 +171,7 @@ namespace WorkScheduleManagement.Controllers
             if (request == null)
                 return NotFound();
 
-            var requestModel = new CreationModel
+            var requestModel = new RequestCreationModel
             {
                 Id = request.Id.ToString(),
                 Type = request.RequestTypes.Id,
@@ -233,7 +233,7 @@ namespace WorkScheduleManagement.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(CreationModel model)
+        public async Task<IActionResult> Edit(RequestCreationModel model)
         {
             if (ModelState.IsValid)
             {
@@ -337,7 +337,7 @@ namespace WorkScheduleManagement.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> UpdateStatus(UpdateStatusModel model)
+        public async Task<IActionResult> UpdateStatus(UpdateRequestStatusModel model)
         {
             await _mediator.Send(new UpdateRequestStatus.Command(new VacationRequest
                     {Id = new Guid(model.Id), RequestStatus = new RequestStatuses {Id = model.NewStatus}}));

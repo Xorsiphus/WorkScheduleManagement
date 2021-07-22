@@ -16,9 +16,9 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
 {
     public static class GetRequestTableModels
     {
-        public record Query(string UserId) : IRequest<List<TableModel>>;
+        public record Query(string UserId) : IRequest<List<ReqeustTableModel>>;
 
-        public class Handler : IRequestHandler<Query, List<TableModel>>
+        public class Handler : IRequestHandler<Query, List<ReqeustTableModel>>
         {
             private readonly AppDbContext _context;
             private readonly UserManager<ApplicationUser> _userManager;
@@ -29,7 +29,7 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                 _userManager = userManager;
             }
 
-            public async Task<List<TableModel>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<ReqeustTableModel>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _userManager.FindByIdAsync(request.UserId);
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -105,7 +105,7 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                             break;
                     }
                     
-                    return new TableModel
+                    return new ReqeustTableModel
                     {
                         Id = r.Id.ToString(),
                         Creator = r.Creator.FullName,

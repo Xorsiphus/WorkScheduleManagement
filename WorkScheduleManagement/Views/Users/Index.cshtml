@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WorkScheduleManagement.Data.Entities.Users.ApplicationUser>
+﻿@model IEnumerable<WorkScheduleManagement.Application.Models.Users.UserTableModel>
 @{
     ViewBag.Title = "Список пользователей";
 }
@@ -10,12 +10,12 @@
     @foreach (var user in Model)
     {
         <tr>
-            <td>@user.Email</td>
+            <td>@user.Username</td>
             <td>@user.FullName</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>@user.CountOfBusinessDays</td>
+            <td>@user.CountOfUnusedVacationDays</td>
+            <td>@user.CountOfUnusedVacationDaysPastYears</td>
+            <td>@user.CountOfHolidays</td>
             <td>
                 <form asp-action="Delete" asp-route-id="@user.Id" method="post">
                     <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
