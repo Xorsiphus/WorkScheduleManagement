@@ -22,14 +22,15 @@ namespace WorkScheduleManagement.Application.Models.Requests
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [RequestDateValidation]
+        [RequestDateIntervalValidation]
         public DateTime DateFrom { get; set; }
         
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [RequestDateValidation]
+        [RequestDateIntervalValidation]
         public DateTime DateTo { get; set; }
         
+        // [RequestCustomDatesValidation]
         public IList<DateTime> CustomDays { get; set; }
         
         public IList<string> RemotePlans { get; set; }

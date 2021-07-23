@@ -48,8 +48,10 @@ namespace WorkScheduleManagement
                 options.LoginPath = new PathString("/Authorization/Login");
                 options.AccessDeniedPath = new PathString("/Errors/Error403");
             });
-            
-            services.AddControllersWithViews();
+
+            services
+                .AddControllersWithViews();
+            // .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RequestValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

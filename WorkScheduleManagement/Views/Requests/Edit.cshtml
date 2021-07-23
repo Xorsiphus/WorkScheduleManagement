@@ -41,13 +41,13 @@
         <div class="form-group" id="FormDateFrom">
             <label asp-for="DateFrom" class="control-label">Дата начала: </label>
             @Html.EditorFor(model => model.DateFrom)
-            <span asp-validation-for="DateFrom"></span>
+            <span asp-validation-for="DateFrom" class="text-danger"></span>
         </div>
 
         <div class="form-group" id="FormDateTo">
             <label asp-for="DateTo" class="control-label">Дата окончания: </label>
             @Html.EditorFor(model => model.DateTo)
-            <span asp-validation-for="DateTo"></span>
+            <span asp-validation-for="DateTo" class="text-danger"></span>
         </div>
     </div>
 
@@ -56,12 +56,12 @@
         <input type="checkbox" asp-for="IsShifting" name="IsShifting"/>
     </div>
 
+    <span asp-validation-for="CustomDays" class="text-danger"></span>
     <div class="form-group" id="FormCustomDate">
         @{
             if (Model.RemotePlans != null)
             {
                 var outData = Model.CustomDays.Zip(Model.RemotePlans, (time, s) => new {Date = time, Plan = s}).ToList();
-
                 <span class="control-label">Одиночные дни:</span>
 
                 foreach (var day in outData)
@@ -105,7 +105,7 @@
                 <input type="text" name="Id" value="@Model.Id" hidden/>
                 <input type="text" name="NewStatus" value="@RequestStatus.SentForApproval" hidden/>
                 <input type="submit" value="Отправить" class="btn btn-outline-secondary"/>
-                <span asp-validation-for="Status"></span>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
         </form>
     }
@@ -116,7 +116,7 @@
                 <input type="text" name="Id" value="@Model.Id" hidden/>
                 <input type="text" name="NewStatus" value="@RequestStatus.Canceled" hidden/>
                 <input type="submit" value="Отозвать" class="btn btn-outline-secondary"/>
-                <span asp-validation-for="Status"></span>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
         </form>
     }
@@ -128,7 +128,7 @@
                 <input type="text" name="Id" value="@Model.Id" hidden/>
                 <input type="text" name="NewStatus" value="@RequestStatus.Agreed" hidden/>
                 <input type="submit" value="Согласовать" class="btn btn-outline-secondary"/>
-                <span asp-validation-for="Status"></span>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
 
         </form>
@@ -138,7 +138,7 @@
                 <input type="text" name="Id" value="@Model.Id" hidden/>
                 <input type="text" name="NewStatus" value="@RequestStatus.NotAgreed" hidden/>
                 <input type="submit" value="Не согласовать" class="btn btn-outline-secondary"/>
-                <span asp-validation-for="Status"></span>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
         </form>
     }
@@ -150,7 +150,7 @@
                 <input type="text" name="Id" value="@Model.Id" hidden/>
                 <input type="text" name="NewStatus" value="@RequestStatus.Approved" hidden/>
                 <input type="submit" value="Утвердить" class="btn btn-outline-secondary"/>
-                <span asp-validation-for="Status"></span>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
         </form>
         <form asp-action="UpdateStatus" asp-controller="Requests">
@@ -158,7 +158,7 @@
                 <input type="text" name="Id" value="@Model.Id" hidden/>
                 <input type="text" name="NewStatus" value="@RequestStatus.NotApproved" hidden/>
                 <input type="submit" value="Не утвердить" class="btn btn-outline-secondary"/>
-                <span asp-validation-for="Status"></span>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
         </form>
     }
@@ -170,7 +170,7 @@
                 <input type="text" name="Id" value="@Model.Id" hidden/>
                 <input type="text" name="NewStatus" value="@RequestStatus.Rejected" hidden/>
                 <input type="submit" value="Отменить" class="btn btn-outline-danger"/>
-                <span asp-validation-for="Status"></span>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
         </form>
     }

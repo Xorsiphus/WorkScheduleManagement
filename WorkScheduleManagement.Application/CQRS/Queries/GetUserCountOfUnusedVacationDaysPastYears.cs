@@ -42,7 +42,7 @@ namespace WorkScheduleManagement.Application.CQRS.Queries
                             cur + Convert.ToInt32(vacationRequest.DateTo.Subtract(vacationRequest.DateFrom).TotalDays) +
                             1);
 
-                    totalPastYearsVacationDays += yearVacationDays;
+                    totalPastYearsVacationDays += 20 - yearVacationDays;
                 }
 
                 return totalPastYearsVacationDays;

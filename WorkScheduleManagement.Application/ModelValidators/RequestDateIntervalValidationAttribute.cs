@@ -5,7 +5,7 @@ using System.Globalization;
 namespace WorkScheduleManagement.Application.ModelValidators
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public sealed class RequestDateValidationAttribute : ValidationAttribute
+    public sealed class RequestDateIntervalValidationAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {
@@ -17,7 +17,7 @@ namespace WorkScheduleManagement.Application.ModelValidators
 
         public override string FormatErrorMessage(string name)
         {
-            return String.Format(CultureInfo.CurrentCulture, "Некорректно заполнено поле");
+            return String.Format(CultureInfo.CurrentCulture, "Некорректная дата");
         }
     }
 }

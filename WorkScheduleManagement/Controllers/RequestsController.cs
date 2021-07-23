@@ -49,6 +49,14 @@ namespace WorkScheduleManagement.Controllers
         [Authorize]
         public async Task<IActionResult> Create(RequestCreationModel model)
         {
+            model.AllTypes = await _mediator.Send(new GetRequestTypes.Query());
+            model.AllVacationTypes = await _mediator.Send(new GetRequestVacationTypes.Query());
+            model.AllReplacerUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
+                .Union(await _mediator.Send(new GetUsersWithRole.Query("employee")))
+                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
+            model.AllApproverUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
+                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
+
             if (ModelState.IsValid)
             {
                 Request newRequest;
@@ -145,20 +153,10 @@ namespace WorkScheduleManagement.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-
-                // foreach (var error in )
-                // {
-                //     ModelState.AddModelError(string.Empty, error.Description);
-                // }
+                
             }
-
-            model.AllTypes = await _mediator.Send(new GetRequestTypes.Query());
-            model.AllVacationTypes = await _mediator.Send(new GetRequestVacationTypes.Query());
-            model.AllReplacerUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
-                .Union(await _mediator.Send(new GetUsersWithRole.Query("employee")))
-                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
-            model.AllApproverUsers = _mediator.Send(new GetUsersWithRole.Query("supervisor")).Result
-                .Concat(new[] {new UserIdNameModel {Id = null, FullName = "Не выбран"}});
+            
+            // var t  =ModelState.Values.SelectMany(m => m.Errors);
 
             return View(model);
         }
@@ -317,11 +315,7 @@ namespace WorkScheduleManagement.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-
-                // foreach (var error in )
-                // {
-                //     ModelState.AddModelError(string.Empty, error.Description);
-                // }
+                
             }
 
             model.AllTypes = await _mediator.Send(new GetRequestTypes.Query());
